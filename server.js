@@ -16,13 +16,8 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 const client_id = config.client_id; // Your client id
 const client_secret = config.client_secret; // Your secret
-const redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
 
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
+const redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
 
 var generateRandomString = function(length) {
   var text = '';
@@ -140,4 +135,3 @@ app.get('/refresh_token', function(req, res) {
 
 console.log('Listening on 3000');
 app.listen(3000);
-// Add Comment Collapse

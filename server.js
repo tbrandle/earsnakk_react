@@ -9,6 +9,7 @@
 
 const dotenv = require('dotenv');
 const config = dotenv.config().parsed;
+const cors = require('cors');
 
 const express = require('express'); // Express web server framework
 const request = require('request'); // "Request" library
@@ -17,7 +18,8 @@ const cookieParser = require('cookie-parser');
 const client_id = config.client_id; // Your client id
 const client_secret = config.client_secret; // Your secret
 
-const redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+const redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri
+const path = require('path');
 
 var generateRandomString = function(length) {
   var text = '';
@@ -31,8 +33,28 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 var app = express();
 
+
+// Serve static assets
+// app.use('/',express.static(path.resolve(__dirname, 'public')))
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
+
+app.use(cors({
+  allowedOrigins: ['localhost:3001', 'https://accounts.spotify.com']
+  // allowedOrigins: ['https://accounts.spotify.com/authorize']
+}))
+
+// Always return the main index.html, so react-router render the route in the client
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+// });
+
+app.use(function(req, res, next) {
+ res.header("Access-Control-Allow-Origin", "*");
+ res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+ next();
+});
+
 
 app.get('/login', function(req, res) {
   console.log('/login');
@@ -108,7 +130,8 @@ app.get('/callback', function(req, res) {
 });
 
 app.get('/underpants', (request, response) => {
-  console.log(request);
+  console.log("working");
+  response.send("fired")
 })
 
 app.get('/refresh_token', function(req, res) {
@@ -133,5 +156,8 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 3000');
-app.listen(3000);
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
+});

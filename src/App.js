@@ -5,9 +5,12 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-   fetch('http://localhost:3001/login')
+   fetch('/auth/spotify')
      .then(res => console.log(res))
+    //  .then(info => console.log(info))
+     .catch(error => console.log(error))
  }
+
   render() {
     return (
       <div className="App">

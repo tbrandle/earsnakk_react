@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Redirect } from 'react-router-dom';
+
 
 class App extends Component {
+  
+  fetchLogin(){
+    return <Redirect to='/login' />
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>earsnakk</h1>
+        <button onClick={() => this.fetchLogin()}>Login</button>
       </div>
     );
   }
 }
 
 export default App;
+
+
+res.redirect('https://accounts.spotify.com/authorize?' +
+  querystring.stringify({
+    response_type: 'code',
+    client_id: client_id,
+    scope: scope,
+    redirect_uri: redirect_uri,
+    state: state
+  }));

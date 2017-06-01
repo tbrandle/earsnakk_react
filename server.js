@@ -17,7 +17,7 @@ const appSecret = config.client_secret;
 
 const express = require('express'); // Express web server framework
 
-const redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri
+const redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 const passport = require('passport')
 
 const app = express();
@@ -51,7 +51,7 @@ app.use(function(req, res, next) {
   next();
 })
 // app.use(cors({
-//    allowedOrigins: ['localhost:3001', 'localhost:3000', 'https://accounts.spotify.com']
+//    allowedOrigins: ['localhost:8888', 'localhost:8888', 'https://accounts.spotify.com']
 //  })
 // );
 // app.options('*', cors())
@@ -64,7 +64,7 @@ app.use(function(req, res, next) {
 
 /********************** PORT ***********************/
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 8888
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
@@ -96,7 +96,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'http://localhost:3001/callback'
+  callbackURL: 'http://localhost:8888/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...

@@ -5,10 +5,10 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-   fetch('/auth/spotify')
-     .then(res => console.log(res))
-    //  .then(info => console.log(info))
-     .catch(error => console.log(error))
+  //  fetch('/auth/spotify')
+  //    .then(res => console.log(res.json()))
+  //   //  .then(info => console.log(info))
+  //    .catch(error => console.log(error))
  }
 
   render() {
@@ -17,6 +17,7 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Poo</h2>
+          <a href="http://localhost:8888/auth/spotify"> login</a>
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.

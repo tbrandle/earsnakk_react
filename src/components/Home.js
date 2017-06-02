@@ -3,8 +3,8 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <div>
-      <h1>earsnakk</h1>
+    <div className="home-wrapper">
+      <h1 className="logo">earsnakk</h1>
       <h3>Create Channel</h3>
       <input type="text" placeholder="New Channel" />
       <button>New Channel</button>

@@ -12,7 +12,7 @@ class App extends Component {
  }
 
    profileFetch(){
-      fetch('https://api.spotify.com/v1/browse/new-releases')
+      fetch('/butts')
         .then(res => res.json())
         .then(releases => console.log(releases))
         .catch(error => console.log(error))

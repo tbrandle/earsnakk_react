@@ -151,12 +151,13 @@ app.get('/auth/spotify',
 app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('http://localhost:3000/');
+    // res.json({req, res})
   });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('http://localhost:3000/');
 });
 
 

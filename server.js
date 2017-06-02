@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const SpotifyWebApi = require('spotify-web-api-node')
 
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -89,6 +90,12 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
+const spotifyApi = new SpotifyWebApi({
+  clientId: appKey,
+  clientSecret: appSecret,
+  redirectUri: 'http://localhost:8888/callback',
+})
+
 // Use the SpotifyStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and spotify
@@ -101,6 +108,8 @@ passport.use(new SpotifyStrategy({
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
+      spotifyApi.setAccessToken(accessToken)
+      spotifyApi.setRefreshToken(refreshToken)
       // To keep the example simple, the user's spotify profile is returned to
       // represent the logged-in user. In a typical application, you would want
       // to associate the spotify account with a user record in your database,
@@ -115,8 +124,14 @@ passport.use(new SpotifyStrategy({
 
 
 app.get('/butts', (req, res) => {
-  console.log("butts");
-  res.send({butts: 'poo'})
+  spotifyApi.getNewReleases({ limit : 5, offset: 0, country: 'SE' })
+    .then(data => {
+      res.send(data)
+     console.log(data.body);
+       done();
+     }, function(err) {
+        console.log("Something went wrong!", err);
+     })
 })
 
 app.get('/', function(req, res){
@@ -153,15 +168,14 @@ app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('http://localhost:3000/');
-    // res.json({req, res})
     // maybe make this redirect to /home 
+
   });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('http://localhost:3000/');
 });
-
 
 
 // Simple route middleware to ensure user is authenticated.

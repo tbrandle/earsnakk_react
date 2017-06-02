@@ -11,6 +11,13 @@ class App extends Component {
   //    .catch(error => console.log(error))
  }
 
+   profileFetch(){
+      fetch('/butts')
+        .then(res => res.json())
+        .then(releases => console.log(releases))
+        .catch(error => console.log(error))
+   }
+
   render() {
     return (
       <div className="App">
@@ -22,6 +29,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={() => this.profileFetch()}>Fetch Music</button>
       </div>
     );
   }

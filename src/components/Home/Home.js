@@ -24,7 +24,6 @@ class Home extends Component {
   render(){
     return (
       <div className="home-wrapper">
-        <h1 className="logo">earsnakk</h1>
         <h3>Create Channel</h3>
         <input type="text" placeholder="New Channel" />
         <Link to="/create-channel"><button>New Channel</button></Link>

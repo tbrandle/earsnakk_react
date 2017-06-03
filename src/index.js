@@ -5,7 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-import Routes from './components/Routes/Routes';
+import App from './components/App/App';
 import './index.css';
 
 const store = configureStore();
@@ -14,7 +14,7 @@ const Root = () => {
   return (
     <Provider store={ store }>
       <BrowserRouter>
-        <Routes />
+        <App />
       </BrowserRouter>
     </Provider>
   )

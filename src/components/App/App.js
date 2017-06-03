@@ -10,13 +10,13 @@ class App extends Component {
   //   //  .then(info => console.log(info))
   //    .catch(error => console.log(error))
  }
-
-   profileFetch(){
-      fetch('/butts')
-        .then(res => res.json())
-        .then(releases => console.log(releases))
-        .catch(error => console.log(error))
-   }
+   //
+  //  profileFetch(){
+  //     fetch('/butts')
+  //       .then(res => res.json())
+  //       .then(releases => console.log(releases))
+  //       .catch(error => console.log(error))
+  //  }
 
   render() {
     return (

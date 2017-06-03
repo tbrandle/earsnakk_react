@@ -11,7 +11,7 @@ export const profileFetch = (dispatch) => {
   return dispatch => {
     fetch('/profile')
       .then(response => response.json())
-      .then(json => dispatch(fetchedUser(json.user)))
+      .then(json => dispatch(fetchedUser(json)))
       .catch(error => console.log(error))
   }
 }

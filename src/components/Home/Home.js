@@ -4,22 +4,12 @@ import { Link } from 'react-router-dom';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // this user object has the display name that we will need to create playlists.
-      user: {}
-    }
+
   }
 
   componentDidMount(){
     this.props.profileFetch()
   }
-
-  //  profileFetch(){
-  //     fetch('/profile')
-  //       .then(res => res.json())
-  //       .then(user => this.setState({ user }))
-  //       .catch(error => console.log(error))
-  //  }
 
   render(){
     return (

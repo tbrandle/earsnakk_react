@@ -1,0 +1,15 @@
+import * as actionCreators from '../actions/actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import CreateChannel from '../components/CreateChannel/CreateChannel';
+
+const mapStateToProps = (state) => {
+  return { ...state, user: state.user };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateChannel);

@@ -2,6 +2,7 @@ const swig = require('swig');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const SpotifyWebApi = require('spotify-web-api-node')
 const consolidate = require('consolidate');
+const fetch = require('isomorphic-fetch');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -128,7 +129,18 @@ app.get('/login', function(req, res){
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify',
-  passport.authenticate('spotify', { scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  passport.authenticate('spotify', {
+  session: false,
+    scope: [
+      'user-read-email',
+      'playlist-modify-public',
+      'playlist-modify-private',
+      'user-read-private',
+      'playlist-read-private',
+      'user-library-read',
+    ],
+    showDialog: true,
+  }),
   function(req, res){
 // The request will be redirected to spotify for authentication, so this
 // function will not be called.
@@ -152,6 +164,27 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('http://localhost:3000/');
 });
+
+app.post('/api/v1/playlist', (req, res) => {
+
+  let userID = req.body.userID
+
+  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+    body: JSON.stringify({
+      name: 'esnakk_test',
+      collaborative: true,
+      public: false,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
+    .catch(error => console.log(error))
+})
 
 
 // Simple route middleware to ensure user is authenticated.

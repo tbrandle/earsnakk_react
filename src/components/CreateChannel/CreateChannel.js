@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './CreateChannel.css'
 
-
 class CreateChannel extends Component {
   constructor() {
     super()
@@ -12,7 +11,15 @@ class CreateChannel extends Component {
   }
 
   handleSubmit = (e) => {
+    console.log(this.props);
     e.preventDefault()
+    fetch('/api/v1/playlist',{
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ clintID: ''}),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
   }
 
   render(){

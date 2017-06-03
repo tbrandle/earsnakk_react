@@ -20,7 +20,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="logo">earsnakk</h1>
+        <header className="header">
+          <h1 className="logo">earsnakk</h1>
+        </header>
         <Routes />
       </div>
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor() {
@@ -27,7 +27,7 @@ class Home extends Component {
         <h1 className="logo">earsnakk</h1>
         <h3>Create Channel</h3>
         <input type="text" placeholder="New Channel" />
-        <button>New Channel</button>
+        <Link to="/create-channel"><button>New Channel</button></Link>
       </div>
     )
   }

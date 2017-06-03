@@ -22,6 +22,12 @@ class CreateChannel extends Component {
       .then(data => console.log(data))
   }
 
+  test() {
+    fetch('/api/v1/user/playlists')
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }
+
   render(){
     return (
       <div className="create-channel-wrapper">
@@ -42,6 +48,7 @@ class CreateChannel extends Component {
           </fieldset>
         </form>
         <input className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit" value="Submit now" />
+        <button onClick={ () => this.test() }>TEST BUTTON</button>
       </div>
     )
   }

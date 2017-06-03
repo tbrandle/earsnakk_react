@@ -15,6 +15,7 @@ const config = dotenv.config().parsed;
 
 const appKey = config.client_id;
 const appSecret = config.client_secret;
+const testID = config.test_id
 
 
 const redirect_uri = 'http://localhost:8888/callback';
@@ -132,11 +133,12 @@ app.get('/auth/spotify',
   passport.authenticate('spotify', {
   session: false,
     scope: [
-      'user-read-email',
       'playlist-modify-public',
       'playlist-modify-private',
-      'user-read-private',
       'playlist-read-private',
+      'playlist-read-collaborative',
+      'user-read-email',
+      'user-read-private',
       'user-library-read',
     ],
     showDialog: true,
@@ -176,14 +178,30 @@ app.post('/api/v1/playlist', (req, res) => {
       Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
     },
     body: JSON.stringify({
-      name: 'esnakk_test',
+      name: 'esnakk_' + req.body.name,
       collaborative: true,
       public: false,
     }),
   })
     .then(response => response.json())
-    .then(data => res.status(200).send(data))
+    .then(data => res.status(201).send(data))
     .catch(error => console.log(error))
+})
+
+app.get('/api/v1/user/playlists', (req, res) => {
+
+  const userID = req.body.userID || testID;
+
+  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+    body: JSON.stringify({}),
+  })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
 })
 
 

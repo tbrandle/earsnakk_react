@@ -1,7 +1,7 @@
 const profile = (state={}, action) => {
   switch(action.type) {
     case 'FETCHED_USER':
-      return action.user;
+      return {...state, ...action.user};
     default:
       return state;
   }

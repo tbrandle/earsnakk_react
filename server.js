@@ -167,8 +167,8 @@ app.get('/auth/spotify',
 app.get('/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('http://localhost:3000/');
-    // maybe make this redirect to /home 
+    res.redirect('http://localhost:3000/home');
+    // maybe make this redirect to /home
 
   });
 

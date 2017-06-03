@@ -5,7 +5,7 @@ const fetchedUser = (user) => {
   }
 }
 
-export const profileFetch = () => {
+export const profileFetch = (dispatch) => {
   return dispatch => {
     fetch('/profile')
       .then(response => response.json())
@@ -13,4 +13,3 @@ export const profileFetch = () => {
       .catch(error => console.log(error))
   }
 }
-

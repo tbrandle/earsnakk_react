@@ -14,17 +14,13 @@ class CreateChannel extends Component {
   componentDidMount(){
     this.setState({ userId: this.props.user.id })
   }
-  
+
+
   handleSubmit = (e) => {
     e.preventDefault()
-    fetch('/api/v1/playlist',{
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ clientID: '' }),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
+    this.props.createPlaylistPost({userId: this.state.userId, name: this.state.name})
   }
+
 
   test() {
     fetch('/api/v1/user/playlists')

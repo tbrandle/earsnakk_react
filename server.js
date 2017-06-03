@@ -165,9 +165,10 @@ app.get('/logout', function(req, res){
   res.redirect('http://localhost:3000/');
 });
 
-app.get('/api/v1/playlist', (req, res) => {
-  let scope = 'playlist-modify-public, playlist-modify-private'
-  let userID = "125394491" //req.params.id
+app.post('/api/v1/playlist', (req, res) => {
+
+  let userID = req.body.userID
+
   fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
     method: 'POST',
     headers: {
@@ -177,12 +178,11 @@ app.get('/api/v1/playlist', (req, res) => {
     body: JSON.stringify({
       name: 'esnakk_test',
       collaborative: true,
+      public: false,
     }),
   })
-    .then(response => {
-      console.log(response.body);
-      res.send(response.body)
-    })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
     .catch(error => console.log(error))
 })
 

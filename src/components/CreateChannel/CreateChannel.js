@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import './CreateChannel.css'
 
-
-const newStation = () => {
-  console.log('clicked');
-  fetch('/api/v1/playlist')
-    .then(response => console.log(response))
-}
-
 class CreateChannel extends Component {
   constructor() {
     super()
@@ -18,7 +11,15 @@ class CreateChannel extends Component {
   }
 
   handleSubmit = (e) => {
+    console.log(this.props);
     e.preventDefault()
+    fetch('/api/v1/playlist',{
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ clintID: ''}),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
   }
 
   render(){
@@ -41,7 +42,6 @@ class CreateChannel extends Component {
           </fieldset>
         </form>
         <input onClick={(e) => this.handleSubmit(e) } type="submit" value="Submit now" />
-        <button onClick={ () => newStation() }>createTEST</button>
       </div>
     )
   }

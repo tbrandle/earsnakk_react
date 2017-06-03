@@ -2,10 +2,12 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import Login from '../Login/Login';
-import HomeContainer from '../../containers/HomeContainer';
-import CreateChannelContainer from '../../containers/CreateChannelContainer';
+
+import HomeContainer from '../Home/HomeContainer';
+import CreateChannelContainer from '../CreateChannel/CreateChannelContainer';
+
 import FindChannel from '../FindChannel/FindChannel';
-import ChannelContainer from '../../containers/ChannelContainer';
+import ChannelContainer from '../Channel/ChannelContainer';
 
 const Routes = () => {
   return (

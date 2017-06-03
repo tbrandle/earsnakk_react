@@ -1,8 +1,9 @@
-import * as actionCreators from '../actions/actions';
+import * as actionCreators from '../../actions/actions';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Home from '../components/Home/Home';
+import CreateChannel from './CreateChannel';
 
 const mapStateToProps = (state) => {
   return { ...state, user: state.user };
@@ -12,4 +13,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateChannel);

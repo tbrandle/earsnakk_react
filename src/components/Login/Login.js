@@ -11,7 +11,7 @@ const spotifyAuth = () => {
 const Login = () => {
   return (
     <div>
-      <h1>welcom to earsnakk</h1>
+      <h1>welcome to <span className="logo">earsnakk</span></h1>
       <p>click here to login with Spotify and start sharing music with your friends</p>
       <a className="login-link" href="http://localhost:8888/auth/spotify">Login</a>
     </div>

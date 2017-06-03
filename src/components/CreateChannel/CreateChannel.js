@@ -6,12 +6,16 @@ class CreateChannel extends Component {
     super()
     this.state = {
       name: '',
-      genres: {}
+      genres: {},
+      userId: ''
     }
   }
 
+  componentDidMount(){
+    this.setState({ userId: this.props.user.id })
+  }
+  
   handleSubmit = (e) => {
-    console.log(this.props);
     e.preventDefault()
     fetch('/api/v1/playlist',{
       method: 'POST',

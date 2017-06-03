@@ -34,7 +34,7 @@ class CreateChannel extends Component {
             <input type="checkbox" name="genres" value="All Genres" />All Genres<br />
           </fieldset>
         </form>
-        <input onClick={(e) => this.handleSubmit(e) } type="submit" value="Submit now" />
+        <input className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit" value="Submit now" />
       </div>
     )
   }

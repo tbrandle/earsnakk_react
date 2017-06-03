@@ -13,8 +13,12 @@ body {
 font-family: 'Audiowide', cursive;
 }
 
-.home-wrapper{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+header {
+  border-bottom: 2px solid black;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

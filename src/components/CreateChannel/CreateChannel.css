@@ -6,11 +6,25 @@
 
 .create-channel-input{
   padding: 7px;
+  margin: 10px 5px;
   width: 202px;
+  border: 1px solid black;
 }
 
+.create-channel-btn {
+  border: 1px solid black;
+  background-color: white;
+  height: 25px;
+  width: 100px;
+  margin: 5px;
+}
+
+.create-channel-btn:hover {
+  background-color: black;
+  color: white;
+}
 
 .create-channel-form {
-  width: 400px;
-margin: 10px;
+  width: 70%;
+  margin: 10px;
 }

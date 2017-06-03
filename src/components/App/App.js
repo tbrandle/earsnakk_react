@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 import Routes from '../Routes/Routes';
 
@@ -20,9 +21,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header className="header">
-          <h1 className="logo">earsnakk</h1>
-        </header>
+        <Link to="/home">
+          <header className="header">
+            <h1 className="logo">earsnakk</h1>
+          </header>
+        </Link>
         <Routes />
       </div>
 

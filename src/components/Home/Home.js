@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
-  constructor() {
-    super()
-    this.state = {
-      // this user object has the display name that we will need to create playlists.
-      user: {}
-    }
+  constructor(props) {
+    super(props);
+
   }
 
   componentDidMount(){
-    this.profileFetch()
+    this.props.profileFetch()
   }
 
   profileFetch(){
@@ -28,7 +25,6 @@ class Home extends Component {
   render(){
     return (
       <div className="home-wrapper">
-        <h1 className="logo">earsnakk</h1>
         <h3>Create Channel</h3>
         <input type="text" placeholder="New Channel" />
         <Link to="/create-channel"><button>New Channel</button></Link>

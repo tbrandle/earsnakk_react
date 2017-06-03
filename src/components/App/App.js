@@ -1,36 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Routes from '../Routes/Routes';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // this user object has the display name that we will need to create playlists.
+      user: {}
+    }
+  }
 
   componentDidMount() {
-  //  fetch('/auth/spotify')
-  //    .then(res => console.log(res.json()))
-  //   //  .then(info => console.log(info))
-  //    .catch(error => console.log(error))
- }
-   //
-  //  profileFetch(){
-  //     fetch('/butts')
-  //       .then(res => res.json())
-  //       .then(releases => console.log(releases))
-  //       .catch(error => console.log(error))
-  //  }
+
+  }
+
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Poo</h2>
-          <a href="http://localhost:8888/auth/spotify"> login</a>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={() => this.profileFetch()}>Fetch Music</button>
+      <div>
+        <header className="header">
+          <h1 className="logo">earsnakk</h1>
+        </header>
+        <Routes />
       </div>
+
     );
   }
 }

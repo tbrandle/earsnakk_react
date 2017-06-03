@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import Login from '../Login/Login';
-import HomeContainer from '../../containers/HomeContainer';
+import HomeContainer from '../Home/HomeContainer';
 import CreateChannel from '../CreateChannel/CreateChannel';
 import FindChannel from '../FindChannel/FindChannel';
 import Channel from '../Channel/Channel';

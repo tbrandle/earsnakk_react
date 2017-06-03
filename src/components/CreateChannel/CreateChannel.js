@@ -16,7 +16,7 @@ class CreateChannel extends Component {
     fetch('/api/v1/playlist',{
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ clintID: ''}),
+      body: JSON.stringify({ clientID: '' }),
     })
       .then(response => response.json())
       .then(data => console.log(data))

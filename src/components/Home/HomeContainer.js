@@ -1,8 +1,8 @@
-import * as actionCreators from '../actions/actions';
+import * as actionCreators from '../../actions/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Home from '../components/Home/Home';
+import Home from './Home';
 
 const mapStateToProps = (state) => {
   return { ...state, user: state.user };

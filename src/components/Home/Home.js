@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 class Home extends Component {
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount(){
@@ -14,9 +13,8 @@ class Home extends Component {
   render(){
     return (
       <div className="home-wrapper">
-        <h3>Create Channel</h3>
-        <input type="text" placeholder="New Channel" />
         <Link to="/create-channel"><button>New Channel</button></Link>
+        <Link to="/find-channel"><button>Find A Channel</button></Link>
       </div>
     )
   }

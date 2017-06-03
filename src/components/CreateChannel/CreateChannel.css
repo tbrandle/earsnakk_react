@@ -9,8 +9,11 @@
   width: 202px;
 }
 
+.create-channel-btn {
+  height: 20px;
+}
 
 .create-channel-form {
   width: 400px;
-margin: 10px;
+  margin: 10px;
 }

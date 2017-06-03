@@ -5,6 +5,8 @@ const CreateChannel = () => {
     <div>
       <input type="text" placeholder="Channel Name" />
 
+    //  not sure about the fieldset here.... we can structure this differently
+    
       <fieldset>
         <legend>Choose Channel Genres</legend>
         <div>

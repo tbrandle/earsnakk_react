@@ -5,6 +5,7 @@ class Home extends Component {
   constructor() {
     super()
     this.state = {
+      // this user object has the display name that we will need to create playlists.
       user: {}
     }
   }

@@ -10,9 +10,9 @@ class Home extends Component {
     }
   }
 
-  componentDidMount(){
-    this.props.profileFetch()
-  }
+  // componentDidMount(){
+  //   this.props.profileFetch()
+  // }
 
   //  profileFetch(){
   //     fetch('/profile')

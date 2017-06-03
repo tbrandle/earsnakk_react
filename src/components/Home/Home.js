@@ -14,9 +14,9 @@ class Home extends Component {
   }
 
    profileFetch(){
-      fetch('/butts')
+      fetch('/profile')
         .then(res => res.json())
-        .then(releases => console.log(releases))
+        .then(user => this.setState({ user }))
         .catch(error => console.log(error))
    }
 

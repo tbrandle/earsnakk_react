@@ -1,35 +1,26 @@
 import React from 'react';
 
+const handleSubmit = (e) => {
+  e.preventDefault()
+}
+
 const CreateChannel = () => {
   return (
     <div>
       <input type="text" placeholder="Channel Name" />
 
     //  not sure about the fieldset here.... we can structure this differently
-    
-      <fieldset>
-        <legend>Choose Channel Genres</legend>
-        <div>
-          <input type="checkbox" id="hiphop" name="interest" value="hiphop"/>
-          <label for="hiphop">Hip-hop</label>
-        </div>
-        <div>
-          <input type="checkbox" id="edm" name="interest" value="edm"/>
-          <label for="edm">EDM</label>
-        </div>
-        <div>
-          <input type="checkbox" id="house" name="interest" value="house"/>
-          <label for="house">House</label>
-        </div>
-        <div>
-          <input type="checkbox" id="rock" name="interest" value="rock"/>
-          <label for="rock">Rock</label>
-        </div>
-        <div>
-          <input type="checkbox" id="all-genres" name="interest" value="all-genres"/>
-          <label for="all-genres">All Genres Allowed</label>
-        </div>
-      </fieldset>
+
+      <form>
+        <fieldset>
+          <legend>Choose Channel Genres</legend>
+            <input type="checkbox" name="genres" value="Hiphop" />Hiphop <br />
+            <input type="checkbox" name="genres" value="EDM" />EDM<br />
+            <input type="checkbox" name="genres" value="Rock" />Rock<br />
+            <input type="checkbox" name="genres" value="All Genres" />All Genres<br />
+            <input onClick={(e) => handleSubmit(e) } type="submit" value="Submit now" />
+        </fieldset>
+      </form>
     </div>
   )
 }

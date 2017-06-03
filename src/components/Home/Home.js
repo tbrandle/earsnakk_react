@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class Home extends Component {
     }
   }
 
-  componentDidMount(){
-    this.props.profileFetch()
-  }
+  // componentDidMount(){
+  //   this.props.profileFetch()
+  // }
 
   //  profileFetch(){
   //     fetch('/profile')
@@ -24,10 +24,9 @@ class Home extends Component {
   render(){
     return (
       <div className="home-wrapper">
-        <h1 className="logo">earsnakk</h1>
         <h3>Create Channel</h3>
         <input type="text" placeholder="New Channel" />
-        <button>New Channel</button>
+        <Link to="/create-channel"><button>New Channel</button></Link>
       </div>
     )
   }

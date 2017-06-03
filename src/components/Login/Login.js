@@ -1,13 +1,6 @@
 import React from 'react';
 import './Login.css'
 
-const spotifyAuth = () => {
-  fetch('/auth/spotify')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error))
-}
-
 const Login = () => {
   return (
     <div>

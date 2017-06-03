@@ -1,12 +1,18 @@
 import React from 'react';
 
+const newStation = () => {
+  console.log('clicked');
+  fetch('/api/v1/playlist')
+    .then(response => console.log(response))
+}
+
 const CreateChannel = () => {
   return (
     <div>
       <input type="text" placeholder="Channel Name" />
 
     //  not sure about the fieldset here.... we can structure this differently
-    
+
       <fieldset>
         <legend>Choose Channel Genres</legend>
         <div>
@@ -30,6 +36,7 @@ const CreateChannel = () => {
           <label for="all-genres">All Genres Allowed</label>
         </div>
       </fieldset>
+      <button onClick={ () => newStation() }>createTEST</button>
     </div>
   )
 }

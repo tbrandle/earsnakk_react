@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 import Login from '../Login/Login';
 
 import HomeContainer from '../Home/HomeContainer';
-import CreateChannelContainer from '../CreateContainer/CreateChannelContainer';
+import CreateChannelContainer from '../CreateChannel/CreateChannelContainer';
 
 import FindChannel from '../FindChannel/FindChannel';
 import ChannelContainer from '../Channel/ChannelContainer';

@@ -15,6 +15,7 @@ class Channel extends Component {
   // <p>artist name: ${track.name}</p>
   displayTracks(){
     return this.state.searchTracks.map(track => {
+      console.log(track);
       return (<div>
         <p>track name: {track.name}</p>
       </div>)
@@ -36,12 +37,12 @@ class Channel extends Component {
     return (
       <div>
         <div className="playlist-wrapper">
-          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`} 
-                  height="80" 
-                  frameBorder="0" 
+          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
+                  height="80"
+                  frameBorder="0"
                   allowTransparency="true"></iframe>
         </div>
-        
+
         <div className="search-wrapper">
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>

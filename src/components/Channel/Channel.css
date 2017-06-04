@@ -11,21 +11,27 @@ iframe {
 
 .search-wrapper {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .search-wrapper input,
 .search-wrapper button {
   border: 1px solid black;
   margin: 10px 5px;
+  padding: 7px;
+}
+
+.search-wrapper input{
+  width: 264px;
 }
 
 .search-wrapper button {
   background-color: white;
+  width: 122px;
 }
 
 .search-wrapper button:hover {
   background-color: black;
   color: white;
 }
-

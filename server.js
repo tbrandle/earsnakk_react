@@ -92,8 +92,54 @@ passport.use(new SpotifyStrategy({
 
 
 
-/********************** GET ***********************/
 
+/*****************************************
+                  GET
+******************************************/
+
+  /*************** oAuth ************/
+
+app.get('/auth/spotify',
+passport.authenticate('spotify', {
+  session: false,
+  scope: [
+    'playlist-modify-public',
+    'playlist-modify-private',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'user-read-email',
+    'user-read-private',
+    'user-library-read',
+  ],
+  showDialog: true,
+}),
+function(req, res){
+});
+
+app.get('/callback',
+passport.authenticate('spotify', { failureRedirect: '/login' }),
+function(req, res) {
+  res.redirect('http://localhost:3000/home');
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('http://localhost:3000/');
+});
+
+app.get('/', function(req, res){
+  res.render('index.html', { user: req.user });
+});
+
+app.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account.html', { user: req.user });
+});
+
+app.get('/login', function(req, res){
+  res.render('login.html', { user: req.user });
+});
+
+  /*************** playlist / profile ************/
 
 app.get('/profile', (req, res) => {
   spotifyApi.getMe()
@@ -112,65 +158,26 @@ app.get('/new-releases', (req, res) => {
      })
 })
 
-app.get('/', function(req, res){
-  res.render('index.html', { user: req.user });
-});
+app.get('/api/v1/user/playlists', (req, res) => {
+  const userID = req.body.userID || testID;
+  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+    body: JSON.stringify({}),
+  })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
+})
 
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account.html', { user: req.user });
-});
-
-app.get('/login', function(req, res){
-  res.render('login.html', { user: req.user });
-});
-
-// GET /auth/spotify
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. The first step in spotify authentication will involve redirecting
-//   the user to spotify.com. After authorization, spotify will redirect the user
-//   back to this application at /auth/spotify/callback
-app.get('/auth/spotify',
-  passport.authenticate('spotify', {
-  session: false,
-    scope: [
-      'playlist-modify-public',
-      'playlist-modify-private',
-      'playlist-read-private',
-      'playlist-read-collaborative',
-      'user-read-email',
-      'user-read-private',
-      'user-library-read',
-    ],
-    showDialog: true,
-  }),
-  function(req, res){
-// The request will be redirected to spotify for authentication, so this
-// function will not be called.
-});
-
-// GET /auth/spotify/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. If authentication fails, the user will be redirected back to the
-//   login page. Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-
-app.get('/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('http://localhost:3000/home');
-    // maybe make this redirect to /home
-
-  });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('http://localhost:3000/');
-});
+/*****************************************
+                  POST
+******************************************/
 
 app.post('/api/v1/playlist', (req, res) => {
-
-  let userID = req.body.userID
-
+  const { userID } = req.body
   fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
     method: 'POST',
     headers: {
@@ -184,25 +191,10 @@ app.post('/api/v1/playlist', (req, res) => {
     }),
   })
     .then(response => response.json())
-    .then(data => res.status(201).send(data))
+    .then(playlist => res.status(201).send(playlist))
     .catch(error => console.log(error))
 })
 
-app.get('/api/v1/user/playlists', (req, res) => {
-
-  const userID = req.body.userID || testID;
-
-  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
-    },
-    body: JSON.stringify({}),
-  })
-    .then(response => response.json())
-    .then(data => res.status(200).send(data))
-})
 
 
 // Simple route middleware to ensure user is authenticated.

@@ -21,12 +21,23 @@ class Channel extends Component {
     })
   }
 
-  searchTracks(){
+  searchTracks() {
     const { artist, track } = this.state
     fetch(`/api/v1/${artist}/search-tracks`)
       .then(response => response.json())
       .then(songs => this.setState({searchTracks: songs.tracks.items}))
       .catch(error => console.log(error))
+  }
+
+  testClick() {
+    const { selectedSong } = this.state
+    fetch(`/api/v1/playlist/songs`, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({}),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
   }
 
   render(){
@@ -36,12 +47,12 @@ class Channel extends Component {
     return (
       <div>
         <div className="playlist-wrapper">
-          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`} 
-                  height="80" 
-                  frameBorder="0" 
+          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
+                  height="80"
+                  frameBorder="0"
                   allowTransparency="true"></iframe>
         </div>
-        
+
         <div className="search-wrapper">
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>
@@ -49,11 +60,7 @@ class Channel extends Component {
           { this.state.searchTracks.length && this.displayTracks() }
         </div>
 
-        <ul>
-          <li>Tim</li>
-          <li>Julian</li>
-          <li>Franklin</li>
-        </ul>
+        <button onClick={ () => this.testClick() }>TEST</button>
       </div>
     )
 

@@ -8,16 +8,16 @@ class Channel extends Component {
     this.state = {
       artist: '',
       track: '',
-      searchTracks: []
+      searchTracks: [],
+      display: 'hidden'
     }
   }
 
-  // <p>artist name: ${track.name}</p>
   displayTracks(){
-    return this.state.searchTracks.map(track => {
+    return this.state.searchTracks.map((track, i) => {
       console.log(track);
       return (<div>
-        <p>track name: {track.name}</p>
+        <p key={i} onClick={(e) => console.log(e.target.dataset.key)} data-key={track.uri} className="track">track name: {track.name}</p>
       </div>)
     })
   }
@@ -36,6 +36,11 @@ class Channel extends Component {
       .catch(error => console.log(error))
     }
 
+    this.toggleSearch()
+  }
+
+  toggleSearch(){
+    this.setState({ display: '' })
   }
 
   render(){
@@ -55,7 +60,7 @@ class Channel extends Component {
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>
           <button onClick={() => this.searchTracks()}>submit</button>
-          <div className="track-wrapper">
+          <div className={this.state.display || 'track-wrapper'}>
             { this.state.searchTracks.length && this.displayTracks() }
           </div>
         </div>

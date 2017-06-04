@@ -32,7 +32,10 @@ export const createPlaylistPost = (dispatch) => {
       body: JSON.stringify({ userID, name }),
     })
       .then(response => response.json())
-      .then(playlist => dispatch(createPlayList(playlist)))
+      .then(playlist => {
+        console.log("playlist: ", playlist);
+        dispatch(createPlayList(playlist))
+      })
       .catch(error => console.log(error))
   }
 }

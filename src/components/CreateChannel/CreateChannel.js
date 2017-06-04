@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './CreateChannel.css'
 
 class CreateChannel extends Component {
@@ -16,8 +17,7 @@ class CreateChannel extends Component {
   }
 
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+  handleSubmit = () => {
     this.props.createPlaylistPost({userID: this.state.userId, name: this.state.name})
   }
 
@@ -47,7 +47,9 @@ class CreateChannel extends Component {
             <input type="checkbox" name="genres" value="All Genres" />All Genres<br />
           </fieldset>
         </form>
-        <input className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit" value="Submit now" />
+        <Link to="/channel" className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit">
+          Submit Now
+        </Link>
         <button onClick={ () => this.test() }>TEST BUTTON</button>
       </div>
     )

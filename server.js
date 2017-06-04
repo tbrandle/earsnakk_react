@@ -187,11 +187,15 @@ app.get('/api/v1/:artist/search-tracks', (req, res) => {
 
 })
 
-// if (artist && track) {
-
-// } else if (artist && !track) {
-//
-// }
+app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
+  const { artist, track } = req.params
+  spotifyApi.searchTracks(`artist:${artist} track:${track}`)
+  .then(data => {
+    res.json(data.body)
+    console.log('Search tracks by "Love" in the artist name', data.body);
+  })
+  .catch(error => console.log(error))
+})
 
 /*****************************************
                   POST

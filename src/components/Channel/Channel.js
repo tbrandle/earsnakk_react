@@ -24,10 +24,18 @@ class Channel extends Component {
 
   searchTracks(){
     const { artist, track } = this.state
-    fetch(`/api/v1/${artist}/search-tracks`)
+    if (artist && track) {
+      fetch(`/api/v1/${artist}/${track}/search-tracks`)
       .then(response => response.json())
       .then(songs => this.setState({searchTracks: songs.tracks.items}))
       .catch(error => console.log(error))
+    } else if (artist && !track) {
+      fetch(`/api/v1/${artist}/search-tracks`)
+      .then(response => response.json())
+      .then(songs => this.setState({searchTracks: songs.tracks.items}))
+      .catch(error => console.log(error))
+    }
+
   }
 
   render(){

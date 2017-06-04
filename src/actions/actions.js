@@ -24,7 +24,6 @@ const createPlayList = (playlist) => {
 
 export const createPlaylistPost = (dispatch) => {
   const { userID, name } = dispatch
-  console.log("dispatch: ", dispatch.userID, dispatch.name);
   return dispatch => {
     fetch('/api/v1/playlist',{
       method: 'POST',
@@ -33,9 +32,18 @@ export const createPlaylistPost = (dispatch) => {
     })
       .then(response => response.json())
       .then(playlist => {
-        console.log("playlist: ", playlist);
         dispatch(createPlayList(playlist))
       })
       .catch(error => console.log(error))
+  }
+}
+
+export const sendUri = (uri) => {
+  return {
+    type: 'SEND_URI',
+    meta: {
+      emit: true
+    },
+    uri
   }
 }

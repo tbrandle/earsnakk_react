@@ -15,15 +15,21 @@ const config = dotenv.config().parsed;
 
 const appKey = config.client_id;
 const appSecret = config.client_secret;
-const testID = config.test_id
-const testPlaylist = config.test_playlist
 
+const http = require('http');
+const io = require('socket.io');
+const { createServer } = require('redux-socket.io-connect');
+const handlers = require('./handlers');
 
 const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')
 
 const express = require('express');
 const app = express();
+const server = http.createServer(app);
+const socket = io(server);
+
+createServer(socket, handlers);
 
 
 /********************** CONFIGURATION ***********************/

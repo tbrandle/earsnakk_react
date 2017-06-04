@@ -16,6 +16,7 @@ export const profileFetch = (dispatch) => {
 
 
 const createPlayList = (playlist) => {
+  console.log("hit");
   return {
     type: 'PLAYLIST',
     playlist
@@ -37,5 +38,36 @@ export const createPlaylistPost = (dispatch) => {
         dispatch(createPlayList(playlist))
       })
       .catch(error => console.log(error))
+  }
+}
+
+
+const sendSongs = (songs) => {
+  return {
+    type: 'SONGS',
+    songs
+  }
+}
+
+export const fetchSongs = (dispatch) => {
+  const { artist, track } = dispatch
+  if (artist && track) {
+
+    return dispatch => {
+      fetch(`/api/v1/${artist}/${track}/search-tracks`)
+      .then(response => response.json())
+      .then(songs => dispatch(sendSongs(songs)))
+      .catch(error => console.log(error))
+    }
+
+  } else if (artist && !track) {
+
+    return dispatch => {
+      fetch(`/api/v1/${artist}/search-tracks`)
+      .then(response => response.json())
+      .then(songs => dispatch(sendSongs(songs)))
+      .catch(error => console.log(error))
+    }
+
   }
 }

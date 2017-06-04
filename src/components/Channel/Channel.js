@@ -14,7 +14,7 @@ class Channel extends Component {
   }
 
   displayTracks(){
-    return this.state.searchTracks.map((track, i) => {
+    return this.props.searchSongs.map((track, i) => {
       console.log(track);
       return (<div>
         <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
@@ -24,18 +24,7 @@ class Channel extends Component {
 
   searchTracks() {
     const { artist, track } = this.state
-    if (artist && track) {
-      fetch(`/api/v1/${artist}/${track}/search-tracks`)
-      .then(response => response.json())
-      .then(songs => this.setState({searchTracks: songs.tracks.items}))
-      .catch(error => console.log(error))
-    } else if (artist && !track) {
-      fetch(`/api/v1/${artist}/search-tracks`)
-      .then(response => response.json())
-      .then(songs => this.setState({searchTracks: songs.tracks.items}))
-      .catch(error => console.log(error))
-    }
-
+    this.props.fetchSongs({ artist, track })
     this.toggleSearch()
   }
 
@@ -72,7 +61,7 @@ class Channel extends Component {
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>
           <button onClick={() => this.searchTracks()}>submit</button>
           <div className={this.state.display || 'track-wrapper'}>
-            { this.state.searchTracks.length && this.displayTracks() }
+            { this.props.searchSongs.length && this.displayTracks() }
           </div>
         </div>
       </div>

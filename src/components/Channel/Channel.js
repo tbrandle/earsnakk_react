@@ -45,7 +45,7 @@ class Channel extends Component {
 
   testClick() {
     const { selectedSong } = this.state
-    fetch(`/api/v1/playlist/songs`, {
+    fetch(`/api/v1/user//channel//songs`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify({}),
@@ -55,8 +55,7 @@ class Channel extends Component {
   }
 
   render(){
-    // const { uri } = this.props.playlist;
-    const uri = 'spotify:user:126858355:playlist:2maWm9kDvv9T9vJMmpTvI7';
+    const { uri } = this.props.playlist;
 
     return (
       <div>

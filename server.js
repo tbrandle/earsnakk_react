@@ -221,8 +221,8 @@ app.post('/api/v1/playlist', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
-  const userID = req.body.userID
+app.post('/api/v1/user/:user_id/channel/:playlist_id/songs', (req, res) => {
+  const userID = req.params.user_id
   const playlistID = req.params.playlist_id
   const uris = [req.body.songURI]
 

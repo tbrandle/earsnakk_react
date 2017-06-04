@@ -172,6 +172,18 @@ app.get('/api/v1/user/playlists', (req, res) => {
     .then(data => res.status(200).send(data))
 })
 
+  /*************** song search ************/
+
+app.get('/api/v1/search-tracks', (req, res) => {
+  const { artist, track } = req.body
+  spotifyApi.searchTracks(`artist:${artist}`)
+  .then(function(data) {
+    console.log('Search tracks by "Love" in the artist name', data.body);
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+})
+
 /*****************************************
                   POST
 ******************************************/

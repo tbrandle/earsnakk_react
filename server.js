@@ -174,15 +174,23 @@ app.get('/api/v1/user/playlists', (req, res) => {
 
   /*************** song search ************/
 
-app.get('/api/v1/search-tracks', (req, res) => {
-  const { artist, track } = req.body
+app.get('/api/v1/:artist/search-tracks', (req, res) => {
+  const { artist } = req.params
+
   spotifyApi.searchTracks(`artist:${artist}`)
-  .then(function(data) {
+  .then(data => {
+    res.json(data.body)
     console.log('Search tracks by "Love" in the artist name', data.body);
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
+  })
+  .catch(error => console.log(error))
+
 })
+
+// if (artist && track) {
+
+// } else if (artist && !track) {
+//
+// }
 
 /*****************************************
                   POST

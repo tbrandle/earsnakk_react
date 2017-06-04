@@ -11,16 +11,9 @@ class Home extends Component {
     this.props.profileFetch()
   }
 
-  profileFetch(){
-    fetch('/profile')
-    .then(res => res.json())
-    .then(user => this.setState({ user }))
-    .catch(error => console.log(error))
-  }
-
-  newChannel(){
-    fetch()
-  }
+  // newChannel(){
+  //   fetch()
+  // }
 
   render(){
     return (

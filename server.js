@@ -16,6 +16,7 @@ const config = dotenv.config().parsed;
 const appKey = config.client_id;
 const appSecret = config.client_secret;
 const testID = config.test_id
+const testPlaylist = config.test_playlist
 
 
 const redirect_uri = 'http://localhost:8888/callback';
@@ -209,6 +210,28 @@ app.post('/api/v1/playlist', (req, res) => {
       name: 'esnakk_' + req.body.name,
       collaborative: true,
       public: false,
+    }),
+  })
+    .then(response => response.json())
+    .then(playlist => res.status(201).send(playlist))
+    .catch(error => console.log(error))
+})
+
+app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
+  const userID = req.body.userID
+  const playlistID = req.params.playlist_id
+  const uris = [req.body.songURI]
+
+  console.log(`userID: ${userID} playlistID: ${playlistID}`);
+
+  fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+    body: JSON.stringify({
+      uris,
     }),
   })
     .then(response => response.json())

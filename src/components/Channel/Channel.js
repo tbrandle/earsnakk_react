@@ -22,12 +22,23 @@ class Channel extends Component {
     })
   }
 
-  searchTracks(){
+  searchTracks() {
     const { artist, track } = this.state
     fetch(`/api/v1/${artist}/search-tracks`)
       .then(response => response.json())
       .then(songs => this.setState({searchTracks: songs.tracks.items}))
       .catch(error => console.log(error))
+  }
+
+  testClick() {
+    const { selectedSong } = this.state
+    fetch(`/api/v1/playlist/songs`, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({}),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
   }
 
   render(){
@@ -50,11 +61,7 @@ class Channel extends Component {
           { this.state.searchTracks.length && this.displayTracks() }
         </div>
 
-        <ul>
-          <li>Tim</li>
-          <li>Julian</li>
-          <li>Franklin</li>
-        </ul>
+        <button onClick={ () => this.testClick() }>TEST</button>
       </div>
     )
 

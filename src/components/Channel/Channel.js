@@ -47,7 +47,9 @@ class Channel extends Component {
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>
           <button onClick={() => this.searchTracks()}>submit</button>
-          { this.state.searchTracks.length && this.displayTracks() }
+          <div className="track-wrapper">
+            { this.state.searchTracks.length && this.displayTracks() }
+          </div>
         </div>
 
         <ul>

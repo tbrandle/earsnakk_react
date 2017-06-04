@@ -13,6 +13,7 @@ iframe {
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 .search-wrapper input,
@@ -34,4 +35,19 @@ iframe {
 .search-wrapper button:hover {
   background-color: black;
   color: white;
+}
+
+.track-wrapper {
+  border: 2px purple solid;
+  height: 276px;
+  width: 79%;
+  position: absolute;
+  top: 148px;
+  overflow: scroll;
+}
+
+.track {
+  border-bottom: 1px lightgrey solid;
+  margin: 0;
+  padding: 10px;
 }

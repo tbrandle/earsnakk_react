@@ -18,8 +18,8 @@ class Home extends Component {
   render(){
     return (
       <div className="home-wrapper">
-        <Link to="/create-channel"><button>New Channel</button></Link>
-        <Link to="/find-channel"><button>Find A Channel</button></Link>
+        <Link to="/create-channel" className="button-link">New Channel</Link>
+        <Link to="/find-channel" className="button-link">Find A Channel</Link>
       </div>
     )
   }

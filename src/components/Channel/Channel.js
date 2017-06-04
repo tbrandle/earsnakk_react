@@ -30,15 +30,16 @@ class Channel extends Component {
   }
 
   render(){
+    // const { uri } = this.props.playlist;
+    const uri = 'spotify:user:126858355:playlist:2maWm9kDvv9T9vJMmpTvI7';
+
     return (
       <div>
-
-        {/* GRAB playlist endpoint and throw in this url */}
         <div className="playlist-wrapper">
-          <iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A2PXdUld4Ueio2pHcB6sM8j&theme=white" 
+          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`} 
                   height="80" 
-                  frameborder="0" 
-                  allowtransparency="true"></iframe>
+                  frameBorder="0" 
+                  allowTransparency="true"></iframe>
         </div>
         
         <div className="search-wrapper">
@@ -47,9 +48,6 @@ class Channel extends Component {
           <button onClick={() => this.searchTracks()}>submit</button>
           { this.state.searchTracks.length && this.displayTracks() }
         </div>
-        
-
-        <h1>PLAYER WIDGET</h1>
 
         <ul>
           <li>Tim</li>

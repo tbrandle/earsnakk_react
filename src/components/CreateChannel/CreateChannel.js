@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Routes from '../Routes/Routes';
 import './CreateChannel.css'
 
 class CreateChannel extends Component {
@@ -12,21 +13,14 @@ class CreateChannel extends Component {
     }
   }
 
-  componentDidMount(){
-    this.setState({ userId: this.props.user.id })
+  handleSubmit() {
+    this.props.createPlaylistPost({userID: this.props.user.id, name: this.state.name})
   }
 
-
-  handleSubmit = () => {
-    this.props.createPlaylistPost({userID: this.state.userId, name: this.state.name})
+  routeToPlaylist(id) {
+    return <Redirect to={`/user/${this.props.user.id }/channel/${id}`}/>
   }
 
-
-  test() {
-    fetch('/api/v1/user/playlists')
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
 
   render(){
     return (
@@ -47,10 +41,10 @@ class CreateChannel extends Component {
             <input type="checkbox" name="genres" value="All Genres" />All Genres<br />
           </fieldset>
         </form>
-        <Link to="/channel" className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit">
+        <button className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit">
           Submit Now
-        </Link>
-        <button onClick={ () => this.test() }>TEST BUTTON</button>
+        </button>
+        {this.props.playlist.id && this.routeToPlaylist(this.props.playlist.id)}
       </div>
     )
   }

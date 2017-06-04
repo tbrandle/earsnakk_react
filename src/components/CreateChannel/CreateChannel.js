@@ -18,7 +18,7 @@ class CreateChannel extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.createPlaylistPost({userId: this.state.userId, name: this.state.name})
+    this.props.createPlaylistPost({userID: this.state.userId, name: this.state.name})
   }
 
 

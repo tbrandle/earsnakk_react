@@ -23,14 +23,16 @@ const createPlayList = (playlist) => {
 }
 
 export const createPlaylistPost = (dispatch) => {
-  console.log("dispatch: ", dispatch);
+  const { userID, name } = dispatch
+  console.log("dispatch: ", dispatch.userID, dispatch.name);
   return dispatch => {
     fetch('/api/v1/playlist',{
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ clientID: dispatch.userId, name: dispatch.name }),
+      body: JSON.stringify({ userID, name }),
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(playlist => dispatch(createPlayList(playlist)))
+      .catch(error => console.log(error))
   }
 }

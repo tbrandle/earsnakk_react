@@ -175,6 +175,7 @@ app.get('/api/v1/user/playlists', (req, res) => {
   /*************** song search ************/
 
 app.get('/api/v1/:artist/search-tracks', (req, res) => {
+
   const { artist } = req.params
 
   spotifyApi.searchTracks(`artist:${artist}`)

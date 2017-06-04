@@ -14,9 +14,19 @@ class Channel extends Component {
   render(){
     return (
       <div>
-        <input type="text" />
-        <button onClick={() => this.searchTracks()}>submit</button>
-        <h1>PLAYER WIDGET</h1>
+        {/* GRAB playlist endpoint and throw in this url */}
+        <div className="playlist-wrapper">
+          <iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A2PXdUld4Ueio2pHcB6sM8j&theme=white" 
+                  height="80" 
+                  frameborder="0" 
+                  allowtransparency="true"></iframe>
+        </div>
+        
+        <div className="search-wrapper">
+          <input type="text" />
+          <button onClick={() => this.searchTracks()}>submit</button>
+        </div>
+        
         <ul>
           <li>Tim</li>
           <li>Julian</li>

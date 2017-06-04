@@ -1,0 +1,31 @@
+.playlist-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 15px 5px 10px;
+}
+
+iframe {
+  border: 2px solid black;
+  width: 80%;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.search-wrapper input,
+.search-wrapper button {
+  border: 1px solid black;
+  margin: 10px 5px;
+}
+
+.search-wrapper button {
+  background-color: white;
+}
+
+.search-wrapper button:hover {
+  background-color: black;
+  color: white;
+}
+

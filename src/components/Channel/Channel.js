@@ -17,7 +17,7 @@ class Channel extends Component {
     return this.state.searchTracks.map((track, i) => {
       console.log(track);
       return (<div>
-        <p key={i} onClick={(e) => console.log(e.target.dataset.key)} data-key={track.uri} className="track">track name: {track.name}</p>
+        <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
       </div>)
     })
   }
@@ -43,12 +43,12 @@ class Channel extends Component {
     this.setState({ display: '' })
   }
 
-  testClick() {
-    const { selectedSong } = this.state
-    fetch(`/api/v1/user//channel//songs`, {
+  addSong(uri) {
+
+    fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ uri, userID: this.props.user.id }),
     })
       .then(response => response.json())
       .then(data => console.log(data))
@@ -63,7 +63,8 @@ class Channel extends Component {
           <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
                   height="80"
                   frameBorder="0"
-                  allowTransparency="true"></iframe>
+                  allowTransparency="true">
+          </iframe>
         </div>
 
         <div className="search-wrapper">
@@ -74,8 +75,6 @@ class Channel extends Component {
             { this.state.searchTracks.length && this.displayTracks() }
           </div>
         </div>
-
-        <button onClick={ () => this.testClick() }>TEST</button>
       </div>
     )
 

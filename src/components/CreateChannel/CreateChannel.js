@@ -18,7 +18,7 @@ class CreateChannel extends Component {
   }
 
   routeToPlaylist(id) {
-    return <Redirect to={`/user/${this.props.user.id }/channel/${id}`}/>
+    return <Redirect to={`/channel/${id}`}/>
   }
 
 

@@ -30,7 +30,6 @@ class Channel extends Component {
   }
 
   render(){
-    console.log(this.state.searchTracks);
     return (
       <div>
         <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>

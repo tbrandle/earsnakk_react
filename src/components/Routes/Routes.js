@@ -16,7 +16,7 @@ const Routes = () => {
       <Route exact path="/home" component={ HomeContainer } />
       <Route exact path="/create-channel" component={ CreateChannelContainer } />
       <Route exact path="/find-channel" component={ FindChannel } />
-      <Route exact path="/user/:user_id/channel/:channel_id" component={ ChannelContainer } />
+      <Route exact path="/channel/:playlist_id" component={ ChannelContainer } />
     </div>
   )
 }

@@ -211,7 +211,7 @@ app.post('/api/v1/playlist', (req, res) => {
       Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
     },
     body: JSON.stringify({
-      name: 'esnakk_' + req.body.name,
+      name: 'earsnakk_' + req.body.name,
       collaborative: true,
       public: false,
     }),
@@ -221,12 +221,11 @@ app.post('/api/v1/playlist', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/api/v1/user/:user_id/channel/:playlist_id/songs', (req, res) => {
-  const userID = req.params.user_id
-  const playlistID = req.params.playlist_id
-  const uris = [req.body.songURI]
+app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
 
-  console.log(`userID: ${userID} playlistID: ${playlistID}`);
+  const userID = req.body.userID
+  const playlistID = req.params.playlist_id
+  const uris = [req.body.uri]
 
   fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
     method: 'POST',

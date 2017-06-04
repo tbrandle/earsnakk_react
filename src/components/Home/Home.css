@@ -4,7 +4,10 @@
   flex-direction: column;
 }
 
-button {
+.button-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 25px;
   width: 300px;
   border: 1px solid black;
@@ -12,7 +15,7 @@ button {
   margin: 5px;
 }
 
-button:hover {
+.button-link:hover {
   background-color: black;
   color: white;
 }

@@ -30,15 +30,17 @@ class Channel extends Component {
   }
 
   render(){
+    const { uri } = this.props.playlist;
+    console.log(uri);
     return (
       <div>
 
         {/* GRAB playlist endpoint and throw in this url */}
         <div className="playlist-wrapper">
-          <iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A2PXdUld4Ueio2pHcB6sM8j&theme=white" 
+          <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`} 
                   height="80" 
-                  frameborder="0" 
-                  allowtransparency="true"></iframe>
+                  frameBorder="0" 
+                  allowTransparency="true"></iframe>
         </div>
         
         <div className="search-wrapper">

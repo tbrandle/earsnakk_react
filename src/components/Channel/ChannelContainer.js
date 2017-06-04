@@ -6,9 +6,10 @@ import { connect } from 'react-redux';
 import Channel from './Channel';
 
 const mapStateToProps = (state) => {
-  return { ...state, 
+  return { ...state,
            user: state.user,
-           playlist: state.playlist
+           playlist: state.playlist,
+           searchSongs: state.searchSongs
          };
 }
 

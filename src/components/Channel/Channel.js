@@ -33,7 +33,6 @@ class Channel extends Component {
   }
 
   addSong(uri) {
-
     fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -50,7 +49,7 @@ class Channel extends Component {
   }
 
   followPlaylist() {
-    fetch(`/api/v1/user/12123400211/channel/1oohIv95L1011DkGz70A3t/followers`,{
+    fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
     })
@@ -75,8 +74,6 @@ class Channel extends Component {
         <div className="track-list">
           { this.getTracks() }
         </div>
-
-        <button onClick={ () => this.followPlaylist() }>FOLLOW</button>
 
         <div className="search-wrapper">
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>

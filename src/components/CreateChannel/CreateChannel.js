@@ -21,7 +21,6 @@ class CreateChannel extends Component {
     return <Redirect to={`/channel/${id}`}/>
   }
 
-
   render(){
     return (
       <div className="create-channel-wrapper">

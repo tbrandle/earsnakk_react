@@ -15,17 +15,14 @@ const config = dotenv.config().parsed;
 
 const appKey = config.client_id;
 const appSecret = config.client_secret;
-const testID = config.test_id
-const testPlaylist = config.test_playlist
-
 
 const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')
+
 const socket_io = require('socket.io');
 const io = socket_io();
 const http = require('http');
-const PORT = process.env.PORT || 8888
-
+const PORT = process.env.PORT || 8888;
 
 const express = require('express');
 const app = express();
@@ -72,14 +69,6 @@ app.use(function(req, res, next) {
   next();
 })
 
-/********************** PORT ***********************/
-
-
-// app.listen(PORT, () => {
-//   console.log(`Listening on ${PORT}`);
-// });
-
-
 /********************** PASSPORT ***********************/
 
 passport.serializeUser(function(user, done) {
@@ -108,9 +97,6 @@ passport.use(new SpotifyStrategy({
       return done(null, profile);
     });
   }));
-
-
-
 
 /*****************************************
                   GET
@@ -164,7 +150,8 @@ app.get('/profile', (req, res) => {
   spotifyApi.getMe()
     .then(user => res.json(user.body))
     .catch(error => console.log(error))
-})
+});
+
 
 app.get('/api/v1/user/playlists/:offset', (req, res) => {
   const offset = req.params.offset
@@ -177,7 +164,7 @@ app.get('/api/v1/user/playlists/:offset', (req, res) => {
   })
     .then(response => response.json())
     .then(data => res.status(200).send(data))
-})
+});
 
   /*************** song search ************/
 

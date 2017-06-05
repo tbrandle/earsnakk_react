@@ -13,11 +13,6 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
-
   render() {
     return (
       <div>
@@ -28,7 +23,6 @@ class App extends Component {
         </Link>
         <Routes />
       </div>
-
     );
   }
 }

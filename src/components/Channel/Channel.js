@@ -11,7 +11,7 @@ class Channel extends Component {
       display: 'hidden'
     }
   }
-  
+
   componentDidMount() {
     var socket = require('socket.io-client')();
     socket.on('connect', function(){
@@ -61,7 +61,7 @@ class Channel extends Component {
                   width="300"
                   height="380"
                   frameborder="0"
-                  allowtransparency="true">
+                  allowTransparency="true">
           </iframe>
           <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
                   height="80"
@@ -80,7 +80,6 @@ class Channel extends Component {
         </div>
       </div>
     )
-
   }
 }
 

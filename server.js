@@ -15,13 +15,12 @@ const config = dotenv.config().parsed;
 
 const appKey = config.client_id;
 const appSecret = config.client_secret;
-const testID = config.test_id
-const testPlaylist = config.test_playlist
 
 
 const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')
 const socket_io = require('socket.io');
+
 const io = socket_io();
 const http = require('http');
 const PORT = process.env.PORT || 8888
@@ -72,13 +71,6 @@ app.use(function(req, res, next) {
   next();
 })
 
-/********************** PORT ***********************/
-
-
-// app.listen(PORT, () => {
-//   console.log(`Listening on ${PORT}`);
-// });
-
 
 /********************** PASSPORT ***********************/
 
@@ -108,8 +100,6 @@ passport.use(new SpotifyStrategy({
       return done(null, profile);
     });
   }));
-
-
 
 
 /*****************************************

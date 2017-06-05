@@ -49,6 +49,12 @@ class Channel extends Component {
     return (
       <div>
         <div className="playlist-wrapper">
+          <iframe src={`https://open.spotify.com/embed?uri=${uri}`}
+                  width="300"
+                  height="380"
+                  frameborder="0"
+                  allowtransparency="true">
+          </iframe>
           <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
                   height="80"
                   frameBorder="0"

@@ -12,9 +12,7 @@ const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_
 const configureStore = () => {
   const store = createStore(
     rootReducer,
-    devTools,
-    client,
-    applyMiddleware(thunk)
+    compose(client, devTools, applyMiddleware(thunk))
   );
   return store;
 }

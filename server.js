@@ -26,10 +26,10 @@ const passport = require('passport')
 
 const express = require('express');
 const app = express();
-const server = http.createServer(app);
-const socket = io(server);
-
-createServer(socket, handlers);
+// const server = http.createServer(app);
+// const socket = io(server);
+// 
+// createServer(socket, handlers);
 
 
 /********************** CONFIGURATION ***********************/

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Channel.css';
+import io from 'socket.io-client';
+
 
 class Channel extends Component {
   constructor() {
@@ -8,15 +10,19 @@ class Channel extends Component {
       artist: '',
       track: '',
       searchTracks: [],
-      display: 'hidden'
+      display: 'hidden',
+      var socket = io();
+
     }
+
   }
 
+
   componentDidMount() {
-    var socket = require('socket.io-client')();
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
     });
+
     // socket.on('event', function(data){});
     // socket.on('disconnect', function(){});
   }
@@ -42,6 +48,8 @@ class Channel extends Component {
 
   addSong(uri) {
 
+    socket.send({uri})
+
     fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -51,23 +59,37 @@ class Channel extends Component {
       .then(data => console.log(data))
   }
 
+  getTracks() {
+    fetch(`/api/v1/user/${this.props.playlist.owner.id}/playlist/${this.props.playlist.id}/tracks`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }
+
+  followPlaylist() {
+    fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }
+
+
   render(){
     const { uri } = this.props.playlist;
 
     return (
       <div>
         <div className="playlist-wrapper">
-          <iframe src={`https://open.spotify.com/embed?uri=${uri}`}
-                  width="300"
-                  height="380"
-                  frameborder="0"
-                  allowTransparency="true">
-          </iframe>
           <iframe src={`https://open.spotify.com/embed?uri=${uri}&theme=white`}
                   height="80"
                   frameBorder="0"
                   allowTransparency="true">
           </iframe>
+        </div>
+
+        <div className="track-list">
+          { this.getTracks() }
         </div>
 
         <div className="search-wrapper">

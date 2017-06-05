@@ -14,7 +14,6 @@ export const profileFetch = (dispatch) => {
   }
 }
 
-
 const createPlayList = (playlist) => {
   console.log("hit");
   return {
@@ -40,7 +39,6 @@ export const createPlaylistPost = (dispatch) => {
       .catch(error => console.log(error))
   }
 }
-
 
 const sendSongs = (songs) => {
   return {

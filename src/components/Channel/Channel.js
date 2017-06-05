@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './Channel.css'
-
+import './Channel.css';
 
 class Channel extends Component {
   constructor() {
@@ -11,6 +10,15 @@ class Channel extends Component {
       searchTracks: [],
       display: 'hidden'
     }
+  }
+  
+  componentDidMount() {
+    var socket = require('socket.io-client')();
+    socket.on('connect', function(){
+      console.log('is this fucking hooked up yet?');
+    });
+    // socket.on('event', function(data){});
+    // socket.on('disconnect', function(){});
   }
 
   displayTracks(){

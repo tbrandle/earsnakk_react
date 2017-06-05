@@ -21,10 +21,29 @@ const testPlaylist = config.test_playlist
 
 const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')
+const socket_io = require('socket.io');
+const io = socket_io();
+const http = require('http');
+const PORT = process.env.PORT || 8888
+
 
 const express = require('express');
 const app = express();
 
+const server = http.createServer(app).listen(PORT, () => {
+  console.log(`server listending on port ${PORT}`)
+});
+
+io.attach(server);
+io.on('connection', function(socket) {
+  console.log('Socket connected: ' + socket.id);
+  socket.on('action', (action) => {
+    if(action.type === 'app/hello') {
+      console.log('Got hello data!', action.data);
+      socket.emit('action', {type: 'message', data: 'boom'});
+    }
+  });
+});
 
 /********************** CONFIGURATION ***********************/
 
@@ -55,11 +74,10 @@ app.use(function(req, res, next) {
 
 /********************** PORT ***********************/
 
-const PORT = process.env.PORT || 8888
 
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on ${PORT}`);
+// });
 
 
 /********************** PASSPORT ***********************/

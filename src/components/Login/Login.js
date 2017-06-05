@@ -1,7 +1,8 @@
 import React from 'react';
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
+  
   return (
     <div>
       <h1>welcome to <span className="logo">earsnakk</span></h1>

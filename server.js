@@ -166,6 +166,18 @@ app.get('/api/v1/user/playlists/:offset', (req, res) => {
     .then(data => res.status(200).send(data))
 });
 
+app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
+  fetch(`https://api.spotify.com/v1/users/${req.params.user_id}/playlists/${req.params.playlist_id}/tracks`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+  })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
+})
+
   /*************** song search ************/
 
 app.get('/api/v1/:artist/search-tracks', (req, res) => {
@@ -246,3 +258,23 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 }
+
+/*****************************************
+                  PUT
+******************************************/
+
+app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
+
+  const ownerID = req.params.owner_id
+  const playlistID = req.params.playlist_id
+
+  fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/followers`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+  })
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+})

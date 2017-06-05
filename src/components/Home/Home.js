@@ -11,10 +11,6 @@ class Home extends Component {
     this.props.profileFetch()
   }
 
-  // newChannel(){
-  //   fetch()
-  // }
-
   render(){
     return (
       <div className="home-wrapper">

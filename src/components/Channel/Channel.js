@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Channel.css';
+const io = require('socket.io-client')
+const socket = io()
 // import io from 'socket.io-client';
 
 
@@ -10,20 +12,20 @@ class Channel extends Component {
       artist: '',
       track: '',
       searchTracks: [],
-      display: 'hidden',
-      socket: require('socket.io-client')()
+      display: 'hidden'
+      // socket: require('socket.io-client')()
     }
 
   }
 
 
   componentDidMount() {
-    console.log(this.state.socket);
-    this.state.socket.on('connect', function(){
+    // console.log(this.state.socket);
+    socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
     });
 
-    this.state.socket.on('song uri', function (uri) {
+    socket.on('song uri', function (uri) {
       console.log("song uri client: ", uri);
     })
 
@@ -53,7 +55,7 @@ class Channel extends Component {
 
   addSong(uri) {
 
-    this.state.socket.emit('song uri', uri)
+    socket.emit('song uri', uri)
 
     fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
       method: 'POST',

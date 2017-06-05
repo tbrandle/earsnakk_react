@@ -161,6 +161,18 @@ app.get('/api/v1/user/playlists/:offset', (req, res) => {
     .then(data => res.status(200).send(data))
 })
 
+app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
+  fetch(`https://api.spotify.com/v1/users/${req.params.user_id}/playlists/${req.params.playlist_id}/tracks`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+    },
+  })
+    .then(response => response.json())
+    .then(data => res.status(200).send(data))
+})
+
   /*************** song search ************/
 
 app.get('/api/v1/:artist/search-tracks', (req, res) => {

@@ -23,7 +23,6 @@ class App extends Component {
         </Link>
         <Routes />
       </div>
-
     );
   }
 }

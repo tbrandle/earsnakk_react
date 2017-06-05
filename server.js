@@ -20,6 +20,7 @@ const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')
 
 const socket_io = require('socket.io');
+
 const io = socket_io();
 const http = require('http');
 const PORT = process.env.PORT || 8888;
@@ -40,6 +41,29 @@ io.on('connection', function(socket) {
       socket.emit('action', {type: 'message', data: 'boom'});
     }
   });
+
+  socket.on('song uri', function(uri){
+      io.emit('song uri', uri)
+    });
+
+
+//   io.on('connection', function (socket) {
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+//
+// Client (index.html)
+//
+// <script src="/socket.io/socket.io.js"></script>
+// <script>
+//   var socket = io('http://localhost');
+//   socket.on('news', function (data) {
+//     console.log(data);
+//     socket.emit('my other event', { my: 'data' });
+//   });
+
 });
 
 /********************** CONFIGURATION ***********************/
@@ -97,6 +121,7 @@ passport.use(new SpotifyStrategy({
       return done(null, profile);
     });
   }));
+
 
 /*****************************************
                   GET

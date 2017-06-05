@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './Channel.css';
+const io = require('socket.io-client')
+const socket = io()
+// import io from 'socket.io-client';
+
 
 class Channel extends Component {
   constructor() {
@@ -9,14 +13,23 @@ class Channel extends Component {
       track: '',
       searchTracks: [],
       display: 'hidden'
+      // socket: require('socket.io-client')()
     }
+
   }
-  
+
+
   componentDidMount() {
-    var socket = require('socket.io-client')();
+    // console.log(this.state.socket);
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
     });
+
+    socket.on('song uri', function (uri) {
+      console.log("song uri client: ", uri);
+    })
+
+
     // socket.on('event', function(data){});
     // socket.on('disconnect', function(){});
   }
@@ -41,6 +54,9 @@ class Channel extends Component {
   }
 
   addSong(uri) {
+
+    socket.emit('song uri', uri)
+
     fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -56,14 +72,14 @@ class Channel extends Component {
       .then(data => console.log(data))
   }
 
-  followPlaylist() {
-    fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
-      method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
+  // followPlaylist() {
+  //   fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
+  //     method: 'PUT',
+  //     headers: { 'Content-type': 'application/json' },
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  // }
 
 
   render(){
@@ -93,7 +109,6 @@ class Channel extends Component {
         </div>
       </div>
     )
-
   }
 }
 

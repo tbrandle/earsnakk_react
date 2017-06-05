@@ -20,16 +20,34 @@ class Channel extends Component {
 
 
   componentDidMount() {
-    // console.log(this.state.socket);
+    const { user } = this.props
+    const { playlist:{owner}, playlist } = this.props
+
+    console.log(user.id, owner.id, playlist.id);
+
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
     });
 
     socket.on('song uri', function (uri) {
-      console.log("song uri client: ", uri);
-    })
+      // check if this.props.userId matches this.props.playlist.owner.id
 
+      if (user.id === owner.id) {
+        console.log("inside check")
 
+        fetch(`/api/v1/channel/${playlist.id}/songs`, {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify({ uri, userID: owner.id }),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        // this.addSong()
+        console.log("song uri client: ", uri)
+
+    }
+
+  })
     // socket.on('event', function(data){});
     // socket.on('disconnect', function(){});
   }
@@ -54,16 +72,7 @@ class Channel extends Component {
   }
 
   addSong(uri) {
-
     socket.emit('song uri', uri)
-
-    fetch(`/api/v1/channel/${this.props.playlist.id}/songs`, {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ uri, userID: this.props.user.id }),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
   }
 
   getTracks() {

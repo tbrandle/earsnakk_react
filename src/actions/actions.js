@@ -14,8 +14,19 @@ export const profileFetch = (dispatch) => {
   }
 }
 
+
+const loadPlayList = (playlist) => {
+  return {
+    type: 'PLAYLIST',
+    playlist
+  }
+}
+
+export const loadEarsnakkPlaylist = (playlist, dispatch) => {
+  return dispatch => dispatch(loadPlayList(playlist))
+}
+
 const createPlayList = (playlist) => {
-  console.log("hit");
   return {
     type: 'PLAYLIST',
     playlist

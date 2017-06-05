@@ -152,26 +152,15 @@ app.get('/profile', (req, res) => {
     .catch(error => console.log(error))
 });
 
-// app.get('/new-releases', (req, res) => {
-//   spotifyApi.getNewReleases({ limit : 5, offset: 0, country: 'SE' })
-//     .then(data => {
-//       res.send(data)
-//      console.log(data.body);
-//        done();
-//      }, function(err) {
-//         console.log("Something went wrong!", err);
-//      })
-// });
 
-app.get('/api/v1/user/playlists', (req, res) => {
-  const userID = req.body.userID;
-  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+app.get('/api/v1/user/playlists/:offset', (req, res) => {
+  const offset = req.params.offset
+  fetch(`https://api.spotify.com/v1/me/playlists?offset=${offset}&limit=50`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
     },
-    body: JSON.stringify({}),
   })
     .then(response => response.json())
     .then(data => res.status(200).send(data))

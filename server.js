@@ -45,25 +45,6 @@ io.on('connection', function(socket) {
   socket.on('song uri', function(uri){
       io.emit('song uri', uri)
     });
-
-
-//   io.on('connection', function (socket) {
-//   socket.emit('news', { hello: 'world' });
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
-//
-// Client (index.html)
-//
-// <script src="/socket.io/socket.io.js"></script>
-// <script>
-//   var socket = io('http://localhost');
-//   socket.on('news', function (data) {
-//     console.log(data);
-//     socket.emit('my other event', { my: 'data' });
-//   });
-
 });
 
 /********************** CONFIGURATION ***********************/

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Channel.css';
+import TrackList from './TrackList'
 const io = require('socket.io-client')
 const socket = io()
-// import io from 'socket.io-client';
 
 
 class Channel extends Component {
@@ -22,10 +22,8 @@ class Channel extends Component {
   componentDidMount() {
     console.log("mounted");
     const { user } = this.props
-    const { playlist:{owner}, playlist } = this.props
+    const { playlist:{ owner, id }, playlist, getTracks } = this.props
 
-
-    console.log(user.id, owner.id, playlist.id);
 
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
@@ -37,7 +35,8 @@ class Channel extends Component {
       if (user.id === owner.id) {
         console.log("inside check")
 
-        fetch(`/api/v1/channel/${playlist.id}/songs`, {
+        fetch(`/api/v1/channel/${id}/songs`, {
+
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ uri, userID: owner.id }),
@@ -46,13 +45,10 @@ class Channel extends Component {
         .then(data => console.log(data))
         // this.addSong()
         console.log("song uri client: ", uri)
+      }
+    })
 
-    }
-
-
-  })
-    // socket.on('event', function(data){});
-    // socket.on('disconnect', function(){});
+    getTracks({ ownerID: owner.id, playlistID: id })
   }
 
 
@@ -64,9 +60,10 @@ class Channel extends Component {
   displayTracks(){
     return this.props.searchSongs.map((track, i) => {
       console.log(track);
-      return (<div>
-        <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
-      </div>)
+      return (
+        <div>
+          <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
+        </div>)
     })
   }
 
@@ -84,25 +81,9 @@ class Channel extends Component {
     socket.emit('song uri', uri)
   }
 
-  getTracks() {
-    fetch(`/api/v1/user/${this.props.playlist.owner.id}/playlist/${this.props.playlist.id}/tracks`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
-
-  // followPlaylist() {
-  //   fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
-  //     method: 'PUT',
-  //     headers: { 'Content-type': 'application/json' },
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  // }
-
-
   render(){
     const { uri } = this.props.playlist;
-
+    const { trackList } = this.props
     return (
       <div>
         <div className="playlist-wrapper">
@@ -113,9 +94,7 @@ class Channel extends Component {
           </iframe>
         </div>
 
-        <div className="track-list">
-          {/* { this.getTracks() } */}
-        </div>
+        <TrackList tracks={trackList}/>
 
         <div className="search-wrapper">
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>

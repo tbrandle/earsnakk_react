@@ -88,3 +88,10 @@ export const removePlaylistFromChannels = (channels) => {
     channels
   }
 }
+
+export const updateChannels = (playlist) => {
+  return {
+    type: 'UPDATE_CHANNELS',
+    playlist
+  }
+}

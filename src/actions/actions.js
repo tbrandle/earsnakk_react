@@ -89,6 +89,12 @@ export const removePlaylistFromChannels = (channels) => {
   }
 }
 
+export const removePlaylistFromStore = () => {
+  return {
+    type: 'REMOVE_PLAYLIST_FROM_STORE'
+  }
+}
+
 
 
 export const updateChannels = (playlist) => {

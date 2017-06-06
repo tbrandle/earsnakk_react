@@ -49,8 +49,8 @@ class Home extends Component {
 
   }
 
-  handleClick(e, playlist){
-    const playlistId = e.target.id
+  handleClick(playlist){
+    // const playlistId = e.target.id
     socket.emit('channels list', playlist)
     this.props.loadEarsnakkPlaylist(playlist)
   }
@@ -59,7 +59,9 @@ class Home extends Component {
     if(this.state.earsnakkPlaylists.length){
       return this.state.earsnakkPlaylists.map(playlist => {
         return (
-          <div key={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
+          <Link to={`/channel/${playlist.id}`}>
+            <div key={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
+          </Link>
         )
       })
 

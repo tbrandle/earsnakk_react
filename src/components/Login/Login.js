@@ -4,9 +4,10 @@ import './Login.css';
 const Login = () => {
   
   return (
-    <div>
+    <div className="login-wrapper">
       <h1>welcome to <span className="logo">earsnakk</span></h1>
-      <p>click here to login with Spotify and start sharing music with your friends</p>
+      <p>click here to login with Spotify and start</p>
+      <p>sharing music with your friends</p>
       <a className="login-link" href="http://localhost:8888/auth/spotify">Login</a>
     </div>
   )

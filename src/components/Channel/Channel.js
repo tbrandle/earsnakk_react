@@ -23,8 +23,6 @@ class Channel extends Component {
     const { user } = this.props
     const { playlist:{owner}, playlist } = this.props
 
-    console.log(user.id, owner.id, playlist.id);
-
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
     });
@@ -34,7 +32,7 @@ class Channel extends Component {
 
       if (user.id === owner.id) {
         console.log("inside check")
-        
+
         fetch(`/api/v1/channel/${playlist.id}/songs`, {
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
@@ -75,11 +73,7 @@ class Channel extends Component {
     socket.emit('song uri', uri)
   }
 
-  getTracks() {
-    fetch(`/api/v1/user/${this.props.playlist.owner.id}/playlist/${this.props.playlist.id}/tracks`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
+
 
   // followPlaylist() {
   //   fetch(`/api/v1/user/12123400211/channel/${playlist_id}/followers`,{
@@ -93,7 +87,7 @@ class Channel extends Component {
 
   render(){
     const { uri } = this.props.playlist;
-
+    const { playlist, getTracks } = this.props
     return (
       <div>
         <div className="playlist-wrapper">
@@ -105,7 +99,7 @@ class Channel extends Component {
         </div>
 
         <div className="track-list">
-          {/* { this.getTracks() } */}
+          { playlist.id.length && getTracks({ ownerID: playlist.owner.id, playlistID: playlist.id }) }
         </div>
 
         <div className="search-wrapper">

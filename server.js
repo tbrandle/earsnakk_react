@@ -47,7 +47,6 @@ io.on('connection', function(socket) {
   });
 
   socket.on('channels list', function(channels){
-    console.log('i heard a thing about channels: ', channels);
     io.emit('channels list', channels)
   })
 });

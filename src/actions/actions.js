@@ -95,3 +95,20 @@ export const updateChannels = (playlist) => {
     playlist
   }
 }
+
+export const channelTrackList = (trackList) => {
+  return {
+    type: 'ADD_PLAYLIST',
+    trackList
+  }
+}
+
+export const getTracks = (dispatch) => {
+  const { ownerID, playlistID } = dispatch
+  return dispatch => {
+    fetch(`/api/v1/user/${ownerID}/playlist/${playlistID}/tracks`)
+    .then(response => response.json())
+    .then(trackList => dispatch(channelTrackList(trackList.items)))
+    .catch(error => console.log(error))
+  }
+}

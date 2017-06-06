@@ -23,7 +23,6 @@ class Home extends Component {
     this.myPlaylists(0)
 
     socket.on('channels list', function (channels) {
-      console.log('client side channels: ', channels);
       updateChannels(channels)
     })
   }

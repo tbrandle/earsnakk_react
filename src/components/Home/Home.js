@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './Home.css';
 import Routes from '../Routes/Routes';
+const io = require('socket.io-client')
+const socket = io()
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +18,14 @@ class Home extends Component {
   }
 
   componentDidMount(page) {
+    const { updateChannels } = this.props
+
     this.myPlaylists(0)
+
+    socket.on('channels list', function (channels) {
+      console.log('client side channels: ', channels);
+      updateChannels(channels)
+    })
   }
 
   myPlaylists(offset) {
@@ -42,7 +51,10 @@ class Home extends Component {
   }
 
   handleClick(playlist){
-    this.props.addPlaylistToChannels(playlist)
+    // this.props.addPlaylistToChannels(playlist)
+
+    socket.emit('channels list', playlist)
+
     this.props.loadEarsnakkPlaylist(playlist)
   }
 

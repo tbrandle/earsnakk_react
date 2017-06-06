@@ -43,8 +43,13 @@ io.on('connection', function(socket) {
   });
 
   socket.on('song uri', function(uri){
-      io.emit('song uri', uri)
-    });
+    io.emit('song uri', uri)
+  });
+
+  socket.on('channels list', function(channels){
+    console.log('i heard a thing about channels: ', channels);
+    io.emit('channels list', channels)
+  })
 });
 
 /********************** CONFIGURATION ***********************/
@@ -145,7 +150,7 @@ app.get('/', function(req, res){
 // app.get('/account', ensureAuthenticated, function(req, res){
 //   res.render('account.html', { user: req.user });
 // });
-// 
+//
 // app.get('/login', function(req, res){
 //   res.render('login.html', { user: req.user });
 // });

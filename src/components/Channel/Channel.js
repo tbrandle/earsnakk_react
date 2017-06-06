@@ -12,7 +12,7 @@ class Channel extends Component {
       artist: '',
       track: '',
       searchTracks: [],
-      display: 'hidden'
+      display: 'hidden',
       // socket: require('socket.io-client')()
     }
 
@@ -53,8 +53,13 @@ class Channel extends Component {
 
 
   componentWillUnmount(){
-    console.log("unmounted");
-    this.props.exitChannel()
+    const { user, playlist:{owner}, playlist } = this.props
+    socket.disconnect()
+    if (user.id === owner.id) {
+      const newChannelsArray = this.props.channels.filter(activeChannel => activeChannel.id !== playlist.id)
+      this.props.removePlaylistFromChannels(newChannelsArray)
+
+    }
   }
 
   displayTracks(){

@@ -105,7 +105,7 @@ class Channel extends Component {
         </div>
 
         <div className="track-list">
-          { this.getTracks() }
+          {/* { this.getTracks() } */}
         </div>
 
         <div className="search-wrapper">

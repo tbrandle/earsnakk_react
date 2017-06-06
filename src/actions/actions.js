@@ -41,10 +41,7 @@ export const createPlaylistPost = (dispatch) => {
       body: JSON.stringify({ userID, name }),
     })
       .then(response => response.json())
-      .then(playlist => {
-        console.log(playlist)
-        dispatch(createPlayList(playlist))
-      })
+      .then(playlist => { dispatch(createPlayList(playlist)) })
       .catch(error => console.log(error))
   }
 }
@@ -75,6 +72,19 @@ export const fetchSongs = (dispatch) => {
       .then(songs => dispatch(sendSongs(songs)))
       .catch(error => console.log(error))
     }
+  }
+}
 
+export const addPlaylistToChannels = (playlist) => {
+  return {
+    type: 'ADD_CHANNEL',
+    playlist
+  }
+}
+
+export const removePlaylistFromChannels = (channels) => {
+  return {
+    type: 'REMOVE_CHANNEL',
+    channels
   }
 }

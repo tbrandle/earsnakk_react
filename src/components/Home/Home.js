@@ -65,7 +65,7 @@ class Home extends Component {
     if(this.state.earsnakkPlaylists.length){
       return this.state.earsnakkPlaylists.map(playlist => {
         return (
-          <div id={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
+          <div key={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
         )
       })
 

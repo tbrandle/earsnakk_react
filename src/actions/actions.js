@@ -95,3 +95,9 @@ export const updateChannels = (playlist) => {
     playlist
   }
 }
+
+export const exitChannel =() => {
+  return {
+    type: 'EXIT_CHANNEL'
+  }
+}

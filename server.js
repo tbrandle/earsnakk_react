@@ -41,6 +41,9 @@ io.on('connection', function(socket) {
       socket.emit('action', {type: 'message', data: 'boom'});
     }
   });
+  socket.on('disconnect', () => {
+    console.log("user disconnected from channel");
+  })
 
   socket.on('song uri', function(uri){
     io.emit('song uri', uri)

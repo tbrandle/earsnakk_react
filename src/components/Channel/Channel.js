@@ -58,8 +58,8 @@ class Channel extends Component {
     if (user.id === owner.id) {
       const newChannelsArray = this.props.channels.filter(activeChannel => activeChannel.id !== playlist.id)
       this.props.removePlaylistFromChannels(newChannelsArray)
-
     }
+    this.props.removePlaylistFromStore()
   }
 
   displayTracks(){

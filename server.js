@@ -142,13 +142,13 @@ app.get('/', function(req, res){
   res.render('index.html', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account.html', { user: req.user });
-});
-
-app.get('/login', function(req, res){
-  res.render('login.html', { user: req.user });
-});
+// app.get('/account', ensureAuthenticated, function(req, res){
+//   res.render('account.html', { user: req.user });
+// });
+// 
+// app.get('/login', function(req, res){
+//   res.render('login.html', { user: req.user });
+// });
 
   /*************** playlist / profile ************/
 

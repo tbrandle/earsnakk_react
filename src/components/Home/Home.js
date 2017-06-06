@@ -49,16 +49,10 @@ class Home extends Component {
 
   }
 
-  handleClick(playlist){
-    // this.props.addPlaylistToChannels(playlist)
-
+  handleClick(e, playlist){
+    const playlistId = e.target.id
     socket.emit('channels list', playlist)
-
     this.props.loadEarsnakkPlaylist(playlist)
-  }
-
-  routeToPlaylist(id) {
-    return <Redirect to={`/channel/${id}`}/>
   }
 
   yourPlaylists(){
@@ -81,11 +75,9 @@ class Home extends Component {
         <div className="earsnakk-playlists">
           {this.yourPlaylists()}
         </div>
-        {this.props.playlist.id && this.routeToPlaylist(this.props.playlist.id)}
       </div>
     )
   }
 }
-
 
 export default Home;

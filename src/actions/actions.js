@@ -110,5 +110,10 @@ export const getTracks = (dispatch) => {
     .then(response => response.json())
     .then(trackList => dispatch(channelTrackList(trackList.items)))
     .catch(error => console.log(error))
+
+export const exitChannel =() => {
+  return {
+    type: 'EXIT_CHANNEL'
+
   }
 }

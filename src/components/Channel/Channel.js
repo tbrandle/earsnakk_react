@@ -20,8 +20,10 @@ class Channel extends Component {
 
 
   componentDidMount() {
+    console.log("mounted");
     const { user } = this.props
     const { playlist:{ owner, id }, playlist, getTracks } = this.props
+
 
     socket.on('connect', function(){
       console.log('is this fucking hooked up yet?');
@@ -34,6 +36,7 @@ class Channel extends Component {
         console.log("inside check")
 
         fetch(`/api/v1/channel/${id}/songs`, {
+
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ uri, userID: owner.id }),
@@ -46,6 +49,12 @@ class Channel extends Component {
     })
 
     getTracks({ ownerID: owner.id, playlistID: id })
+  }
+
+
+  componentWillUnmount(){
+    console.log("unmounted");
+    this.props.exitChannel()
   }
 
   displayTracks(){

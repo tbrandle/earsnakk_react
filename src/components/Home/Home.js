@@ -50,23 +50,19 @@ class Home extends Component {
 
   }
 
-  handleClick(playlist){
-    // this.props.addPlaylistToChannels(playlist)
-
+  handleClick(e, playlist){
+    const playlistId = e.target.id
     socket.emit('channels list', playlist)
-
     this.props.loadEarsnakkPlaylist(playlist)
-  }
-
-  routeToPlaylist(id) {
-    return <Redirect to={`/channel/${id}`}/>
   }
 
   yourPlaylists(){
     if(this.state.earsnakkPlaylists.length){
       return this.state.earsnakkPlaylists.map(playlist => {
         return (
-          <div id={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
+          <Link to={`/channel/${playlist.id}`}>
+            <div id={playlist.id} onClick={ (e) => this.handleClick(e, playlist) }>{playlist.name}</div>
+          </Link>
         )
       })
 
@@ -82,11 +78,9 @@ class Home extends Component {
         <div className="earsnakk-playlists">
           {this.yourPlaylists()}
         </div>
-        {this.props.playlist.id && this.routeToPlaylist(this.props.playlist.id)}
       </div>
     )
   }
 }
-
 
 export default Home;

@@ -38,6 +38,9 @@
     "babel-preset-latest": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2",
     "react-scripts": "1.0.7",
     "redux-devtools": "^3.4.0",
     "redux-mock-store": "^1.2.3"
@@ -45,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "./node_modules/.bin/mocha",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8888/"

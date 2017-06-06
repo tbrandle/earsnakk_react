@@ -42,6 +42,7 @@ class Home extends Component {
   }
 
   handleClick(playlist){
+    this.props.addPlaylistToChannels(playlist)
     this.props.loadEarsnakkPlaylist(playlist)
   }
 

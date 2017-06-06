@@ -23,7 +23,6 @@ class Home extends Component {
     this.myPlaylists(0)
 
     socket.on('channels list', function (channels) {
-      console.log('client side channels: ', channels);
       updateChannels(channels)
     })
   }
@@ -60,9 +59,7 @@ class Home extends Component {
     if(this.state.earsnakkPlaylists.length){
       return this.state.earsnakkPlaylists.map(playlist => {
         return (
-          <Link to={`/channel/${playlist.id}`}>
-            <div id={playlist.id} onClick={ (e) => this.handleClick(e, playlist) }>{playlist.name}</div>
-          </Link>
+          <div key={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
         )
       })
 

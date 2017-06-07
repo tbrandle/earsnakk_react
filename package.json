@@ -2,7 +2,7 @@
   "name": "earsnakk",
   "version": "1.0.0",
   "engines": {
-    "node": "6.9.x"
+    "node": "8.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -27,7 +27,7 @@
     "http": "0.0.0",
     "isomorphic-fetch": "^2.2.1",
     "method-override": "2.0.2",
-    "node": "0.0.0",
+    "node": "8.0.0",
     "passport": "~0.2.0",
     "passport-spotify": "^0.3.1",
     "socket.io": "^2.0.2",

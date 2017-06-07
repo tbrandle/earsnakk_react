@@ -1,12 +1,12 @@
-const playlist = (state={}, action) => {
-  switch(action.type) {
+const playlist = (state = {}, action) => {
+  switch (action.type) {
     case 'PLAYLIST':
-      return {...state, ...action.playlist};
+      return { ...state, ...action.playlist };
     case 'REMOVE_PLAYLIST_FROM_STORE':
-      return {}
+      return {};
     default:
       return state;
   }
-}
+};
 
 export default playlist;

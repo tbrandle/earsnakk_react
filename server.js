@@ -33,6 +33,7 @@ const server = http.createServer(app).listen(PORT, () => {
 });
 
 io.attach(server);
+
 io.on('connection', function(socket) {
   console.log('Socket connected: ' + socket.id);
   socket.on('action', (action) => {
@@ -49,9 +50,10 @@ io.on('connection', function(socket) {
     io.emit('song uri', uri)
   });
 
-  socket.on('channels list', function(channels){
-    io.emit('channels list', channels)
-  })
+  socket.on('channel', function(data){
+    socket.join(data.room);
+  });
+  
 });
 
 /********************** CONFIGURATION ***********************/
@@ -71,7 +73,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/public'));
 
-// app.engine('html', consolidate.swig);
+app.engine('html', consolidate.swig);
 
 
 /********************** CORS ***********************/

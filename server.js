@@ -165,7 +165,7 @@ app.get('/login', function(req, res){
 app.get('/profile', (req, res) => {
   spotifyApi.getMe()
     .then(user => res.json(user.body))
-    .catch(error => console.log(error))
+    .catch(error => response.status(500).send(error))
 });
 
 
@@ -180,18 +180,25 @@ app.get('/api/v1/user/playlists/:offset', (req, res) => {
   })
     .then(response => response.json())
     .then(data => res.status(200).send(data))
+    .catch(error => response.status(500).send(error) )
 });
 
 app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
-  fetch(`https://api.spotify.com/v1/users/${req.params.user_id}/playlists/${req.params.playlist_id}/tracks`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
-    },
-  })
-    .then(response => response.json())
-    .then(data => res.status(200).send(data))
+  const { user_id, playlist_id } = req.params
+  if (!user_id || !playlist_id) {
+    res.status(400).send({ error: "Both a Spotify user ID and a playlist ID are required" })
+  } else {
+    fetch(`https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+      },
+    })
+      .then(response => response.json())
+      .then(data => res.status(200).send(data))
+      .catch(error => res.status(500).send(error))
+  }
 })
 
   /*************** song search ************/
@@ -225,42 +232,52 @@ app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
 
 app.post('/api/v1/playlist', (req, res) => {
   const { userID } = req.body
-  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
-    },
-    body: JSON.stringify({
-      name: 'earsnakk_' + req.body.name,
-      collaborative: true,
-      public: false,
-    }),
-  })
-    .then(response => response.json())
-    .then(playlist => res.status(201).send(playlist))
-    .catch(error => console.log(error))
+
+  if (!userID) {
+    res.status(400).send({ error: 'A userID is required to post a playlist.' })
+  } else {
+    fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+      },
+      body: JSON.stringify({
+        name: 'earsnakk_' + req.body.name,
+        collaborative: true,
+        public: false,
+      }),
+    })
+      .then(response => response.json())
+      .then(playlist => res.status(201).send(playlist))
+      .catch(error => res.status(500).send(error))
+  }
+
 })
 
 app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
 
-  const userID = req.body.userID
   const playlistID = req.params.playlist_id
+  const userID = req.body.userID
   const uris = [req.body.uri]
+  if (!userID || !uris.length) {
+    res.status(400).send({ error: 'A userID and song uri is required to post a song to a playlist.'})
+  } else {
+    fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+      },
+      body: JSON.stringify({
+        uris,
+      }),
+    })
+      .then(response => response.json())
+      .then(playlist => res.status(201).send(playlist))
+      .catch(error => res.status(500).send(error))
+  }
 
-  fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
-    },
-    body: JSON.stringify({
-      uris,
-    }),
-  })
-    .then(response => response.json())
-    .then(playlist => res.status(201).send(playlist))
-    .catch(error => console.log(error))
 })
 
 
@@ -292,5 +309,5 @@ app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
     },
   })
     .then(response => console.log(response))
-    .catch(error => console.log(error))
+    .catch(error => res.status(500).send(error))
 })

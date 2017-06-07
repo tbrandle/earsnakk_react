@@ -13,8 +13,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const config = dotenv.config().parsed;
 
-const appKey = config.client_id;
-const appSecret = config.client_secret;
+const appKey = process.env.client_id || config.client_id;
+const appSecret = process.env.client_secret || config.client_secret;
 
 const redirect_uri = 'http://localhost:8888/callback';
 const passport = require('passport')

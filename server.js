@@ -202,7 +202,7 @@ app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
       .then(data => res.status(200).send(data))
       .catch(error => res.status(500).send(error))
   }
-})
+});
 
   /** song search ******************************************/
 
@@ -219,7 +219,7 @@ app.get('/api/v1/:artist/search-tracks', (req, res) => {
     }
   })
   .catch(error => res.status(500).json(error))
-})
+});
 
 app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
   const { artist, track } = req.params;
@@ -233,7 +233,7 @@ app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
     }
   })
   .catch(error => res.status(500).json(error));
-})
+});
 
 /** POST ******************************************/
 
@@ -259,8 +259,7 @@ app.post('/api/v1/playlist', (req, res) => {
       .then(playlist => res.status(201).send(playlist))
       .catch(error => res.status(500).send(error))
   }
-
-})
+});
 
 app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
 
@@ -284,8 +283,7 @@ app.post('/api/v1/channel/:playlist_id/songs', (req, res) => {
       .then(playlist => res.status(201).send(playlist))
       .catch(error => res.status(500).send(error))
   }
-
-})
+});
 
 
 
@@ -298,7 +296,6 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 }
-
 
 /** PUT ******************************************/
 
@@ -319,5 +316,4 @@ app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
     .then(res => res.status(200).json(res))
     .catch(error => res.status(500).json(error));
   }  
-
-})
+});

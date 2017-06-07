@@ -1,7 +1,8 @@
 {
   "extends": "airbnb-base",
   "plugins": [
-    "import"
+    "import",
+    "react"
   ],
   "env": {
     "browser": true,
@@ -9,6 +10,9 @@
     "node": true,
     "es6": true,
     "jquery": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
   },
   "rules": {
     "quotes": [2, "single"],

@@ -1,10 +1,10 @@
-const profile = (state={}, action) => {
-  switch(action.type) {
+const profile = (state = {}, action) => {
+  switch (action.type) {
     case 'FETCHED_USER':
-      return {...state, ...action.user};
+      return { ...state, ...action.user };
     default:
       return state;
   }
-}
+};
 
 export default profile;

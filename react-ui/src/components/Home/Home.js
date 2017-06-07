@@ -59,8 +59,6 @@ class Home extends Component {
     return (
       <div className="home-wrapper">
         <Link to="/create-channel" className="button-link">New Channel</Link>
-        <Link to="/find-channel" className="button-link">Find A Channel</Link>
-
       </div>
     )
   }

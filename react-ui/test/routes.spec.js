@@ -9,19 +9,19 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 describe('Routes', () => {
-  it('should allow a user to login with Spotify', (done) => {
+  it('should allow a user to login with Spotify', () => {
     
   });
   
-  it('/callback should redirect you to to /home', (done) => {
+  it('/callback should redirect you to to /home', () => {
     
   });
   
-  it('should retrieve a users earsnakk_ playlists', (done) => {
+  it('should retrieve a users earsnakk_ playlists', () => {
     
   });
   
-  it('should return a 404 if a user doesnt have playlists', (done) => {
+  it('should return a 404 if a user doesnt have playlists', () => {
     
   });
   

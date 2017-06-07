@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Channel.css';
 import TrackList from './TrackList'
+import DisplaySearchTracks from './DisplaySearchTracks'
 const io = require('socket.io-client')
 const socket = io()
 
@@ -61,16 +62,6 @@ class Channel extends Component {
     this.props.removePlaylistFromStore()
   }
 
-  displayTracks(){
-    return this.props.searchSongs.map((track, i) => {
-      console.log(track);
-      return (
-        <div>
-          <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
-        </div>)
-    })
-  }
-
   searchTracks() {
     const { artist, track } = this.state
     this.props.fetchSongs({ artist, track })
@@ -104,10 +95,10 @@ class Channel extends Component {
           <input type="text" placeholder="artist" onChange={(e) => this.setState({ artist: e.target.value })} value={this.state.artist}/>
           <input type="text" placeholder="song" onChange={(e) => this.setState({ track: e.target.value })} value={this.state.track}/>
           <button onClick={() => this.searchTracks()}>submit</button>
-          <div className={this.state.display || 'track-wrapper'}>
-            { this.props.searchSongs.length && this.displayTracks() }
-          </div>
         </div>
+
+        <DisplaySearchTracks tracks={this.props.searchSongs} addSong={ (uri) => this.addSong(uri) }/>
+
       </div>
     )
   }

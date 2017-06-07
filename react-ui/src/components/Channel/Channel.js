@@ -65,7 +65,7 @@ class Channel extends Component {
     return this.props.searchSongs.map((track, i) => {
       console.log(track);
       return (
-        <div>
+        <div key={track.id}>
           <p key={i} onClick={ (e) => this.addSong(track.uri) } data-key={track.uri} className="track">track name: {track.name}</p>
         </div>)
     })

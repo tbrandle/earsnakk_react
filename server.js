@@ -59,7 +59,7 @@ io.on('connection', function(socket) {
 
 // app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-app.set('public', __dirname + '../react-ui/build');
+app.set('public', __dirname + '/react-ui/build');
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());

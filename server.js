@@ -71,7 +71,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/public'));
 
-// app.engine('html', consolidate.swig);
+app.engine('html', consolidate.swig);
 
 
 /********************** CORS ***********************/

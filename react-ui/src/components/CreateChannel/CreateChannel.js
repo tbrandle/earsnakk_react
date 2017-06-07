@@ -31,16 +31,7 @@ class CreateChannel extends Component {
           placeholder="Channel Name"
           value={this.state.name}
           onChange={(e) =>  this.setState({ name: e.target.value }) }
-          />
-        <form className="create-channel-form">
-          <fieldset>
-            <legend>Choose Channel Genres</legend>
-            <input type="checkbox" name="genres" value="Hiphop" />Hiphop <br />
-            <input type="checkbox" name="genres" value="EDM" />EDM<br />
-            <input type="checkbox" name="genres" value="Rock" />Rock<br />
-            <input type="checkbox" name="genres" value="All Genres" />All Genres<br />
-          </fieldset>
-        </form>
+        />
         <button className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit">
           Submit Now
         </button>

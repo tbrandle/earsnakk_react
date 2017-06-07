@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import YourPlaylists from './YourPlaylists'
 import './Home.css';
 import Routes from '../Routes/Routes';
 const io = require('socket.io-client')
@@ -46,26 +47,11 @@ class Home extends Component {
     if (data.next !== null || !playlistArr.length){
       this.myPlaylists(offset+50)
     }
-
   }
 
   handleClick(playlist){
-    // const playlistId = e.target.id
     socket.emit('channels list', playlist)
     this.props.loadEarsnakkPlaylist(playlist)
-  }
-
-  yourPlaylists(){
-    if(this.state.earsnakkPlaylists.length){
-      return this.state.earsnakkPlaylists.map(playlist => {
-        return (
-          <Link to={`/channel/${playlist.id}`}>
-            <div key={playlist.id} onClick={ () => this.handleClick(playlist) }>{playlist.name}</div>
-          </Link>
-        )
-      })
-
-    }
   }
 
 
@@ -74,12 +60,12 @@ class Home extends Component {
       <div className="home-wrapper">
         <Link to="/create-channel" className="button-link">New Channel</Link>
         <Link to="/find-channel" className="button-link">Find A Channel</Link>
-        <div className="earsnakk-playlists">
-          {this.yourPlaylists()}
-        </div>
+
       </div>
     )
   }
 }
 
 export default Home;
+
+{/* <YourPlaylists playlists={this.state.earsnakkPlaylists} handleClick={ (playlist) => this.handleClick(playlist) }/> */}

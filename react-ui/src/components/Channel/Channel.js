@@ -20,13 +20,13 @@ class Channel extends Component {
 
 
   componentDidMount() {
-    console.log("mounted");
+    console.log(this.props.playlist);
     const { user } = this.props
     const { playlist:{ owner, id }, playlist, getTracks } = this.props
 
 
     socket.on('connect', function(){
-      console.log('is this fucking hooked up yet?');
+      console.log('Socket connect');
     });
 
     socket.on('song uri', function (uri) {
@@ -47,7 +47,6 @@ class Channel extends Component {
         console.log("song uri client: ", uri)
       }
     })
-
     getTracks({ ownerID: owner.id, playlistID: id })
   }
 

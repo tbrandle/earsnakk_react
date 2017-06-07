@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './App.css';
 import Routes from '../Routes/Routes';
 
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["render"] }] */
 
 class App extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 const swig = require('swig');
 const SpotifyStrategy = require('passport-spotify').Strategy;
-const SpotifyWebApi = require('spotify-web-api-node')
+const SpotifyWebApi = require('spotify-web-api-node');
 const consolidate = require('consolidate');
 const fetch = require('isomorphic-fetch');
 
@@ -11,51 +11,51 @@ const session = require('express-session');
 
 const dotenv = require('dotenv');
 const cors = require('cors');
+
 const config = dotenv.config().parsed;
 
 const appKey = process.env.client_id || config.client_id;
 const appSecret = process.env.client_secret || config.client_secret;
 
 const redirect_uri = 'https://earsnakk.herokuapp.com/callback';
-const passport = require('passport')
+const passport = require('passport');
 
 const socket_io = require('socket.io');
 
 const io = socket_io();
 const http = require('http');
+
 const PORT = process.env.PORT || 8888;
 
 const express = require('express');
+
 const app = express();
 
 const server = http.createServer(app).listen(PORT, () => {
-  console.log(`server listending on port ${PORT}`)
+  console.log(`server listending on port ${PORT}`);
 });
 
 io.attach(server);
-io.on('connection', function(socket) {
-  console.log('Socket connected: ' + socket.id);
+io.on('connection', (socket) => {
   socket.on('action', (action) => {
-    if(action.type === 'app/hello') {
-      console.log('Got hello data!', action.data);
-      socket.emit('action', {type: 'message', data: 'boom'});
+    if (action.type === 'app/hello') {
+      socket.emit('action', { type: 'message', data: 'boom' });
     }
   });
   socket.on('disconnect', () => {
-    console.log("user disconnected from channel");
-  })
-
-  socket.on('song uri', function(uri){
-    io.emit('song uri', uri)
+    console.log('user disconnected from channel');
   });
 
-  socket.on('channel', function(data){
+  socket.on('song uri', (uri) => {
+    io.emit('song uri', uri);
+  });
+
+  socket.on('channel', (data) => {
     socket.join(data.room);
   });
-
 });
 
-/********************** CONFIGURATION ***********************/
+/** CONFIGURATION ******************************************/
 
 // app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
@@ -75,22 +75,22 @@ app.use(express.static(__dirname + '/react-ui/build'));
 app.engine('html', consolidate.swig);
 
 
-/********************** CORS ***********************/
+/** CORS ******************************************/
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods","GET,PUT,POST,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
-})
+});
 
-/********************** PASSPORT ***********************/
+/** PASSPORT ******************************************/
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
@@ -98,27 +98,25 @@ const spotifyApi = new SpotifyWebApi({
   clientId: appKey,
   clientSecret: appSecret,
   redirectUri: 'https://earsnakk.herokuapp.com/callback',
-})
+});
 
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'https://earsnakk.herokuapp.com/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      spotifyApi.setAccessToken(accessToken)
-      spotifyApi.setRefreshToken(refreshToken)
+  callbackURL: 'https://earsnakk.herokuapp.com/callback',
+},
+  (accessToken, refreshToken, profile, done) => {
+    process.nextTick(() => {
+      spotifyApi.setAccessToken(accessToken);
+      spotifyApi.setRefreshToken(refreshToken);
       return done(null, profile);
     });
   }));
 
 
-/*****************************************
-                  GET
-******************************************/
+/** GET ******************************************/
 
-  /*************** oAuth ************/
+  /** oAuth ******************************************/
 
 app.get('/auth/spotify',
 passport.authenticate('spotify', {
@@ -134,33 +132,38 @@ passport.authenticate('spotify', {
   ],
   showDialog: true,
 }),
-function(req, res){
+(req, res) => {
 });
 
 app.get('/callback',
 passport.authenticate('spotify', { failureRedirect: '/login' }),
-function(req, res) {
+(req, res) => {
   res.redirect('https://earsnakk.herokuapp.com/home');
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('https://earsnakk.herokuapp.com/');
 });
 
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
   res.render('index.html', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
+
+app.get('/account', ensureAuthenticated, (req, res) => {
   res.render('account.html', { user: req.user });
 });
 
-app.get('/login', function(req, res){
+app.get('/login', (req, res) => {
   res.render('login.html', { user: req.user });
 });
 
-  /*************** playlist / profile ************/
+  /** playlist / profile ******************************************/
 
 app.get('/profile', (req, res) => {
   spotifyApi.getMe()
@@ -170,7 +173,7 @@ app.get('/profile', (req, res) => {
 
 
 app.get('/api/v1/user/playlists/:offset', (req, res) => {
-  const offset = req.params.offset
+  const offset = req.params.offset;
   fetch(`https://api.spotify.com/v1/me/playlists?offset=${offset}&limit=50`, {
     method: 'GET',
     headers: {
@@ -201,34 +204,28 @@ app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
   }
 })
 
-  /*************** song search ************/
+  /** song search ******************************************/
 
 app.get('/api/v1/:artist/search-tracks', (req, res) => {
-
-  const { artist } = req.params
+  const { artist } = req.params;
 
   spotifyApi.searchTracks(`artist:${artist}`)
-  .then(data => {
-    res.json(data.body)
-    console.log('Search tracks by "Love" in the artist name', data.body);
+  .then((data) => {
+    res.json(data.body);
   })
-  .catch(error => console.log(error))
-
-})
+  .catch(error => res.send(error));
+});
 
 app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
-  const { artist, track } = req.params
+  const { artist, track } = req.params;
   spotifyApi.searchTracks(`artist:${artist} track:${track}`)
-  .then(data => {
-    res.json(data.body)
-    console.log('Search tracks by "Love" in the artist name', data.body);
+  .then((data) => {
+    res.json(data.body);
   })
-  .catch(error => console.log(error))
-})
+  .catch(error => res.send(error));
+});
 
-/*****************************************
-                  POST
-******************************************/
+/** POST ******************************************/
 
 app.post('/api/v1/playlist', (req, res) => {
   const { userID } = req.body
@@ -292,14 +289,12 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-/*****************************************
-                  PUT
-******************************************/
+
+/** PUT ******************************************/
 
 app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
-
-  const ownerID = req.params.owner_id
-  const playlistID = req.params.playlist_id
+  const ownerID = req.params.owner_id;
+  const playlistID = req.params.playlist_id;
 
   fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/followers`, {
     method: 'PUT',
@@ -311,3 +306,4 @@ app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
     .then(response => console.log(response))
     .catch(error => res.status(500).send(error))
 })
+

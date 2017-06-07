@@ -9,8 +9,8 @@ class App extends Component {
     super(props);
     this.state = {
       // this user object has the display name that we will need to create playlists.
-      user: {}
-    }
+      user: {},
+    };
   }
 
   render() {

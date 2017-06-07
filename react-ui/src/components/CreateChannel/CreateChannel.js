@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Routes from '../Routes/Routes';
-import './CreateChannel.css'
+import './CreateChannel.css';
 
 class CreateChannel extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       name: '',
       genres: {},
-      userId: ''
-    }
+      userId: '',
+    };
   }
 
   handleSubmit() {
-    this.props.createPlaylistPost({userID: this.props.user.id, name: this.state.name})
+    this.props.createPlaylistPost({ userID: this.props.user.id, name: this.state.name });
   }
 
   routeToPlaylist(id) {
-    this.props.addPlaylistToChannels(this.props.playlist)
-    return <Redirect to={`/channel/${id}`}/>
+    this.props.addPlaylistToChannels(this.props.playlist);
+    return <Redirect to={`/channel/${id}`}/>;
   }
 
-  render(){
+  render() {
     return (
       <div className="create-channel-wrapper">
         <input
@@ -30,14 +30,14 @@ class CreateChannel extends Component {
           type="text"
           placeholder="Channel Name"
           value={this.state.name}
-          onChange={(e) =>  this.setState({ name: e.target.value }) }
+          onChange={ e => this.setState({ name: e.target.value }) }
         />
-        <button className="create-channel-btn" onClick={(e) => this.handleSubmit(e) } type="submit">
+        <button className="create-channel-btn" onClick={ e => this.handleSubmit(e) } type="submit">
           Submit Now
         </button>
         {this.props.playlist.id && this.routeToPlaylist(this.props.playlist.id)}
       </div>
-    )
+    );
   }
 }
 

@@ -14,7 +14,7 @@ const Routes = () => {
       <Route exact path="/create-channel" component={ CreateChannelContainer } />
       <Route exact path="/channel/:playlist_id" component={ ChannelContainer } />
     </div>
-  )
-}
+  );
+};
 
 export default Routes;

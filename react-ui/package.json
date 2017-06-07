@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "es6-promise": "^4.1.0",
-    "eslint-plugin-react": "^7.0.1",
     "method-override": "2.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -32,7 +31,11 @@
     "mocha": "^3.4.2",
     "react-scripts": "1.0.7",
     "redux-devtools": "^3.4.0",
-    "redux-mock-store": "^1.2.3"
+    "redux-mock-store": "^1.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-react": "^7.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

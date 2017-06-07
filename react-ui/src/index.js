@@ -18,8 +18,8 @@ const Root = () => {
         <App />
       </BrowserRouter>
     </Provider>
-  )
-}
+  );
+};
 
 render(<Root />, document.getElementById('root'));
 registerServiceWorker();

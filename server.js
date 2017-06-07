@@ -49,9 +49,10 @@ io.on('connection', function(socket) {
     io.emit('song uri', uri)
   });
 
-  socket.on('channels list', function(channels){
-    io.emit('channels list', channels)
-  })
+  socket.on('channel', function(data){
+    socket.join(data.room);
+  });
+
 });
 
 /********************** CONFIGURATION ***********************/

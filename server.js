@@ -69,7 +69,7 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/react-ui/build'));
 
 app.engine('html', consolidate.swig);
 

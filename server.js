@@ -96,13 +96,13 @@ passport.deserializeUser(function(obj, done) {
 const spotifyApi = new SpotifyWebApi({
   clientId: appKey,
   clientSecret: appSecret,
-  redirectUri: 'http://localhost:8888/callback',
+  redirectUri: 'https://earsnakk.herokuapp.com/callback',
 })
 
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'http://localhost:8888/callback'
+  callbackURL: 'https://earsnakk.herokuapp.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -139,12 +139,12 @@ function(req, res){
 app.get('/callback',
 passport.authenticate('spotify', { failureRedirect: '/login' }),
 function(req, res) {
-  res.redirect('http://localhost:3000/home');
+  res.redirect('https://earsnakk.herokuapp.com/home');
 });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('http://localhost:3000/');
+  res.redirect('https://earsnakk.herokuapp.com/');
 });
 
 app.get('/', function(req, res){

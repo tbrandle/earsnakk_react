@@ -56,7 +56,9 @@ io.on('connection', function(socket) {
 
 /********************** CONFIGURATION ***********************/
 
-app.set('public', __dirname + '/public');
+// app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+
+app.set('public', __dirname + '../react-ui/build');
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
@@ -69,7 +71,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/public'));
 
-app.engine('html', consolidate.swig);
+// app.engine('html', consolidate.swig);
 
 
 /********************** CORS ***********************/

@@ -18,6 +18,11 @@ class Channel extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    socket.emit('channel', {
+      channel: nextProps.playlist.id
+    });
+  }
 
   componentDidMount() {
     console.log(this.props.playlist);
@@ -29,6 +34,9 @@ class Channel extends Component {
       console.log('Socket connect');
     });
 
+    socket.emit('channel', {
+      channel: this.props.playlist.id
+    })
     socket.on('song uri', function (uri) {
       // check if this.props.userId matches this.props.playlist.owner.id
 

@@ -16,7 +16,7 @@ const config = dotenv.config().parsed;
 const appKey = process.env.client_id || config.client_id;
 const appSecret = process.env.client_secret || config.client_secret;
 
-const redirect_uri = 'http://localhost:8888/callback';
+const redirect_uri = 'https://earsnakk.herokuapp.com/callback';
 const passport = require('passport')
 
 const socket_io = require('socket.io');

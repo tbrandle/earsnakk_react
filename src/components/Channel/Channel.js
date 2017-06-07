@@ -26,7 +26,7 @@ class Channel extends Component {
 
 
     socket.on('connect', function(){
-      console.log('is this fucking hooked up yet?');
+      console.log('Socket connect');
     });
 
     socket.on('song uri', function (uri) {

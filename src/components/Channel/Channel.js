@@ -20,7 +20,7 @@ class Channel extends Component {
 
 
   componentDidMount() {
-    console.log("mounted");
+    console.log(this.props.playlist);
     const { user } = this.props
     const { playlist:{ owner, id }, playlist, getTracks } = this.props
 
@@ -47,7 +47,6 @@ class Channel extends Component {
         console.log("song uri client: ", uri)
       }
     })
-
     getTracks({ ownerID: owner.id, playlistID: id })
   }
 

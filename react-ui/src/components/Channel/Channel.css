@@ -1,57 +1,57 @@
 .playlist-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 15px 5px 10px;
+  display         : flex;
+  margin          : 15px 5px 10px;
+  justify-content : center;
 }
 
 iframe {
-  border: 2px solid black;
-  width: 80%;
+  width  : 80%;
+  border : 2px solid black;
 }
 
 .search-wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
+  display        : flex;
+  position       : relative;
+  align-items    : center;
+  flex-direction : column;
 }
 
-.search-wrapper input,
+.search-wrapper button,
+.search-wrapper input {
+  margin  : 10px 5px;
+  padding : 7px;
+  border  : 1px solid black;
+}
+
+.search-wrapper input {
+  width : 264px;
+}
+
 .search-wrapper button {
-  border: 1px solid black;
-  margin: 10px 5px;
-  padding: 7px;
-}
-
-.search-wrapper input{
-  width: 264px;
-}
-
-.search-wrapper button {
-  background-color: white;
-  width: 122px;
+  width            : 122px;
+  background-color : white;
 }
 
 .search-wrapper button:hover {
-  background-color: black;
-  color: white;
+  color            : white;
+  background-color : black;
 }
 
 .track-wrapper {
-  border: 2px purple solid;
-  height: 276px;
-  width: 79%;
-  position: absolute;
-  top: 148px;
-  overflow: scroll;
+  position : absolute;
+  top      : 148px;
+  width    : 79%;
+  height   : 276px;
+  overflow : scroll;
+  border   : 2px purple solid;
 }
 
 .track {
-  border-bottom: 1px lightgrey solid;
-  margin: 0;
-  padding: 10px;
+  margin        : 0;
+  padding       : 10px;
+  border-bottom : 1px lightgrey solid;
 }
 
 .hidden {
-  display: none;
+  display : none;
 }

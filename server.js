@@ -207,23 +207,33 @@ app.get('/api/v1/user/:user_id/playlist/:playlist_id/tracks', (req, res) => {
   /** song search ******************************************/
 
 app.get('/api/v1/:artist/search-tracks', (req, res) => {
-  const { artist } = req.params;
 
+  const { artist } = req.params
+  
   spotifyApi.searchTracks(`artist:${artist}`)
-  .then((data) => {
-    res.json(data.body);
+  .then(data => {
+    if (!data.body.length) {
+      res.status(404).json({ error: 'We didn\'t find that artist' });
+    } else {
+      res.status(200).json(data.body)
+    }
   })
-  .catch(error => res.send(error));
-});
+  .catch(error => res.status(500).json(error))
+})
 
 app.get('/api/v1/:artist/:track/search-tracks', (req, res) => {
   const { artist, track } = req.params;
   spotifyApi.searchTracks(`artist:${artist} track:${track}`)
-  .then((data) => {
-    res.json(data.body);
+
+  .then(data => {
+    if (!data.body.length) {
+      res.status(404).json({ error: 'Please check your search parameters, nothing found here' });
+    } else {
+      res.status(200).json(data.body)
+    }
   })
-  .catch(error => res.send(error));
-});
+  .catch(error => res.status(500).json(error));
+})
 
 /** POST ******************************************/
 
@@ -296,14 +306,18 @@ app.put('/api/v1/user/:owner_id/channel/:playlist_id/followers', (req, res) => {
   const ownerID = req.params.owner_id;
   const playlistID = req.params.playlist_id;
 
-  fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/followers`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
-    },
-  })
-    .then(response => console.log(response))
-    .catch(error => res.status(500).send(error))
-})
+  if (!ownerID || !playlistID) {
+    res.status(400).json({ error: 'Make sure you have an ownerID and playlistID in your request' });
+  } else {
+    fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/followers`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + spotifyApi.getAccessToken(),
+      },
+    })
+    .then(res => res.status(200).json(res))
+    .catch(error => res.status(500).json(error));
+  }  
 
+})
